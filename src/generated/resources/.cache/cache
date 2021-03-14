@@ -11,7 +11,7 @@ cc168c201b1aed849a41929642d8cdf76c6f133a assets/pizzachef/models/item/tomato_see
 93f29028d1b01ac860bbce5f2f9979ac961c0fe5 data/forge/tags/items/items/crops/tomato.json
 93f29028d1b01ac860bbce5f2f9979ac961c0fe5 data/forge/tags/items/items/fruits/tomato.json
 93f29028d1b01ac860bbce5f2f9979ac961c0fe5 data/forge/tags/items/items/vegetables/tomato.json
-991d01c7fffcc877e2123983a746a494b737e99e data/forge/tags/items/tomato.json
-46a51cb5090697fdd16ab360ed0c77a916a7e488 data/pizzachef/advancements/recipes/pizzachef/tomato_seeds.json
-98862fe4a778dc37d209d94a85612ad34db36b26 data/pizzachef/recipes/tomato_seeds.json
+8db4bc5bb90a461672d1a350134e09d0a1cbf852 data/pizzachef/advancements/recipes/pizzachef/tomato_seeds.json
+72c98c94db0c1b86a14df23bfd44763a879e028b data/pizzachef/recipes/tomato_seeds.json
 9f2e3c0aef00ecff471a28461877043c5110e7af data/pizzachef/tags/items/pizza_toppings.json
+991d01c7fffcc877e2123983a746a494b737e99e data/pizzachef/tags/items/tomato.json

@@ -8,6 +8,7 @@ import com.queekus.pizzachef.items.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
+import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.Items;
 
@@ -49,5 +50,15 @@ public class ModRecipeProvider extends RecipeProvider
             .requires(ModItems.tomato)
             .unlockedBy("has_item", has(ModItems.granite_grinding_stone))
             .save(consumer);
-}
+
+        ShapedRecipeBuilder
+            .shaped(ModItems.pizza_base)
+            .define('F', ModItems.flour) // Review if forge tag exists for this
+            .define('W', Items.WATER_BUCKET)
+            .pattern("FFF")
+            .pattern("FWF")
+            .pattern("FFF")
+            .unlockedBy("has_item", has(ModItems.flour))
+            .save(consumer);
+    }
 }

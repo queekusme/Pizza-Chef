@@ -9,16 +9,27 @@ import java.util.function.Supplier;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import com.queekus.pizzachef.blocks.ModBlocks;
+import com.queekus.pizzachef.items.ModItems;
 
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.block.BeetrootBlock;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.LootTableProvider;
 import net.minecraft.data.loot.BlockLootTables;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.item.Item;
+import net.minecraft.loot.ItemLootEntry;
 import net.minecraft.loot.LootParameterSet;
 import net.minecraft.loot.LootParameterSets;
+import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTableManager;
 import net.minecraft.loot.ValidationTracker;
+import net.minecraft.loot.conditions.BlockStateProperty;
+import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.loot.functions.ApplyBonus;
 import net.minecraft.util.ResourceLocation;
 
 public class ModLootTableProvider extends LootTableProvider
@@ -45,14 +56,40 @@ public class ModLootTableProvider extends LootTableProvider
         @Override
         protected void addTables()
         {
-            // registerDropSelfLootTable(ModBlocks.template_block);
+            add(
+                ModBlocks.crop_tomato,
+                createProduceCropDrops(
+                    ModItems.tomato,
+                    ModItems.tomato_seeds,
+                    BlockStateProperty
+                        .hasBlockStateProperties(ModBlocks.crop_tomato)
+                        .setProperties(StatePropertiesPredicate.Builder.properties()
+                            .hasProperty(BeetrootBlock.AGE, 7))
+                )
+            );
+        }
+
+        protected static LootTable.Builder createProduceCropDrops(Item crop, Item seed, ILootCondition.IBuilder p_218541_3_) {
+            return LootTable.lootTable()
+                .withPool(
+                    LootPool.lootPool()
+                        .add(
+                            ItemLootEntry.lootTableItem(crop)
+                                .when(p_218541_3_)
+                                .otherwise(ItemLootEntry.lootTableItem(seed))))
+                .withPool(
+                    LootPool.lootPool()
+                        .when(p_218541_3_)
+                        .add(
+                            ItemLootEntry.lootTableItem(crop)
+                                .apply(ApplyBonus.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))));
         }
 
         @Override
         protected Iterable<Block> getKnownBlocks()
         {
             return new ArrayList<Block>(){{
-                //add(ModBlocks.template_block);
+                add(ModBlocks.crop_tomato);
             }};
         }
     }

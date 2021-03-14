@@ -1,4 +1,5 @@
 {
+  "block.pizzachef.crop_tomato": "Tomato Seeds",
   "item.pizzachef.block_of_cheese": "Block of Cheese",
   "item.pizzachef.flour": "Flour",
   "item.pizzachef.grated_cheese": "Grated Cheese",
@@ -7,6 +8,5 @@
   "item.pizzachef.pizza_slice": "Cooked Pizza Slice",
   "item.pizzachef.tomato": "Tomato",
   "item.pizzachef.tomato_puree": "Tomato Pur\u00E9e",
-  "item.pizzachef.tomato_seeds": "Tomato Seeds",
   "itemGroup.pizzachef": "Pizza Chef"
 }

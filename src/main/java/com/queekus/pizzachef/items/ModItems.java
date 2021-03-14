@@ -1,15 +1,16 @@
 package com.queekus.pizzachef.items;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import com.queekus.pizzachef.PizzaChef;
+import com.queekus.pizzachef.blocks.ModBlocks;
 import com.queekus.pizzachef.utils.Function2;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Properties;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -52,7 +53,7 @@ public class ModItems
      * @param constr - class constructor e.g. BlockItem::new or CustomBlockItem::new
      * @param block - block to register an item for
      */
-    public static void registerItemForBlock(String id, Function2<Block, Properties, BlockItem> constr, RegistryObject<Block> block)
+    public static void registerItemForBlock(String id, Function2<Block, Properties, BlockItem> constr, Supplier<Block> block)
     {
         ITEMS.register(id, () -> constr.apply(block.get(), new Item.Properties().tab(PizzaChef.creativeTab)));
     }
@@ -64,7 +65,7 @@ public class ModItems
         ModItems.registerItem("pizza_base", Item::new, new Item.Properties());
 
         ModItems.registerItem("tomato", Item::new, new Item.Properties());
-        ModItems.registerItem("tomato_seeds", Item::new, new Item.Properties());
+        ModItems.registerItemForBlock("tomato_seeds", BlockItem::new, () -> ModBlocks.crop_tomato);
         ModItems.registerItem("tomato_puree", Item::new, new Item.Properties());
 
         ModItems.registerItem("block_of_cheese", Item::new, new Item.Properties());

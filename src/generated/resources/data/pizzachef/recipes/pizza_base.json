@@ -1,18 +1,34 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "FFF",
-    "FWF",
-    "FFF"
-  ],
-  "key": {
-    "F": {
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
       "item": "pizzachef:flour"
     },
-    "W": {
+    {
+      "item": "pizzachef:flour"
+    },
+    {
+      "item": "pizzachef:flour"
+    },
+    {
+      "item": "pizzachef:flour"
+    },
+    {
+      "item": "pizzachef:flour"
+    },
+    {
+      "item": "pizzachef:flour"
+    },
+    {
+      "item": "pizzachef:flour"
+    },
+    {
       "item": "minecraft:water_bucket"
+    },
+    {
+      "item": "pizzachef:granite_grinding_stone"
     }
-  },
+  ],
   "result": {
     "item": "pizzachef:pizza_base"
   }

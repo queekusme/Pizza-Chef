@@ -32,6 +32,8 @@ public class ModItemModelProvider extends ItemModelProvider
         builder(ITEM_GENERATED, "grated_cheese");
 
         builder(ITEM_GENERATED, "flour");
+
+        builder(ITEM_GENERATED, "granite_grinding_stone");
     }
 
     private ItemModelBuilder builder(ModelFile file, String name)

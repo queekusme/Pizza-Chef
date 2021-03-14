@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pizzachef:granite_grinding_stone"
+    },
+    {
+      "item": "pizzachef:tomato"
+    }
+  ],
+  "result": {
+    "item": "pizzachef:tomato_puree"
+  }
+}

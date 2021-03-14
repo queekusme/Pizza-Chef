@@ -58,6 +58,10 @@ public class ModLangProvider extends LanguageProvider
         {{
             put("en_us", "Flour");
         }});
+        put(getRegistryIdFor(ModItems.granite_grinding_stone), new HashMap<String, String>()
+        {{
+            put("en_us", "Granite Grinding Stone");
+        }});
     }};
 
     public ModLangProvider(DataGenerator gen, String locale)
@@ -93,6 +97,8 @@ public class ModLangProvider extends LanguageProvider
         addMod(ModItems.grated_cheese);
 
         addMod(ModItems.flour);
+
+        addMod(ModItems.granite_grinding_stone);
     }
 
     private void addBlocks()

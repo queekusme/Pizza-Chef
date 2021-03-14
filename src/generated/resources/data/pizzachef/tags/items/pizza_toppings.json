@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "pizzachef:grated_cheese",
+    "pizzachef:tomato_puree",
+    "minecraft:cooked_beef",
+    "minecraft:cooked_porkchop",
+    "minecraft:cooked_chicken",
+    "minecraft:cooked_cod",
+    "minecraft:cooked_mutton",
+    "minecraft:cooked_rabbit",
+    "minecraft:cooked_salmon",
+    "minecraft:beetroot",
+    "minecraft:melon_slice"
+  ]
+}

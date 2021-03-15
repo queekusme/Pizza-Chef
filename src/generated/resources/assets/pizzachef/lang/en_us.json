@@ -9,5 +9,7 @@
   "item.pizzachef.pizza_slice": "Cooked Pizza Slice",
   "item.pizzachef.tomato": "Tomato",
   "item.pizzachef.tomato_puree": "Tomato Pur\u00E9e",
-  "itemGroup.pizzachef": "Pizza Chef"
+  "itemGroup.pizzachef": "Pizza Chef",
+  "pizza.lore.left": "Left",
+  "pizza.lore.right": "Right"
 }

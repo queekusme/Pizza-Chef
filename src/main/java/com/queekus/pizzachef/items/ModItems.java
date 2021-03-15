@@ -61,9 +61,9 @@ public class ModItems
 
     public static void register()
     {
-        ModItems.registerItem("pizza", Item::new, new Item.Properties());
-        ModItems.registerItem("pizza_slice", Item::new, new Item.Properties());
-        ModItems.registerItem("pizza_base", Item::new, new Item.Properties());
+        ModItems.registerItem("pizza", PizzaItem::new, new Item.Properties());
+        ModItems.registerItem("pizza_slice", PizzaItem::new, new Item.Properties());
+        ModItems.registerItem("pizza_base", PizzaItem::new, new Item.Properties());
 
         ModItems.registerItem("tomato", Item::new, new Item.Properties());
         ModItems.registerItemForBlock("tomato_seeds", BlockItem::new, () -> ModBlocks.crop_tomato);

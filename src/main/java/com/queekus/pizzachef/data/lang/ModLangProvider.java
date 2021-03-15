@@ -18,10 +18,21 @@ public class ModLangProvider extends LanguageProvider
 
     private static final Map<String, Map<String, String>> LOCALE_DATA = new HashMap<String, Map<String, String>>()
     {{
+        // Misc
         put("itemGroup.pizzachef", new HashMap<String, String>()
         {{
             put("en_us", "Pizza Chef");
         }});
+        put("pizza.lore.left", new HashMap<String, String>()
+        {{
+            put("en_us", "Left");
+        }});
+        put("pizza.lore.right", new HashMap<String, String>()
+        {{
+            put("en_us", "Right");
+        }});
+
+        // Items
         put(getRegistryIdFor(ModItems.pizza), new HashMap<String, String>()
         {{
             put("en_us", "Cooked Pizza");
@@ -81,6 +92,8 @@ public class ModLangProvider extends LanguageProvider
     private void addMisc()
     {
         addMod("itemGroup.pizzachef");
+        addMod("pizza.lore.left");
+        addMod("pizza.lore.right");
     }
 
     private void addItems()

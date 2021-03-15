@@ -46,16 +46,29 @@ public class ModRecipeProvider extends RecipeProvider
         ShapelessRecipeBuilder
             .shapeless(ModItems.tomato_puree)
             .requires(ModItems.granite_grinding_stone)
-            .requires(ModItems.tomato)
-            .unlockedBy("has_item", has(ModItems.granite_grinding_stone))
+            .requires(ModTags.Items.TOMATO)
+            .unlockedBy("has_item", has(ModTags.Items.TOMATO))
             .save(consumer);
 
         ShapelessRecipeBuilder
             .shapeless(ModItems.pizza_base)
             .requires(ModItems.flour, 7) // Review if forge tag exists for this
             .requires(Items.WATER_BUCKET)
-            .requires(ModItems.granite_grinding_stone) // TODO: Requires ignoring damage
+            .requires(ModItems.granite_grinding_stone)
             .unlockedBy("has_item", has(ModItems.flour))
-            .save(consumer);
+            .save(consumer); // TODO: Recipe Book doesn't ignore damage, recipe works manually however
+
+        ShapelessRecipeBuilder
+            .shapeless(ModItems.grated_cheese)
+            .requires(ModItems.block_of_cheese) // Review if forge tag exists for this
+            .unlockedBy("has_item", has(ModItems.block_of_cheese))
+            .save(consumer); // TODO: Recipe Book doesn't ignore damage, recipe works manually however
+
+        ShapelessRecipeBuilder
+            .shapeless(ModItems.block_of_cheese)
+            .requires(ModItems.grated_cheese, 8) // Review if forge tag exists for this
+            .requires(ModItems.granite_grinding_stone)
+            .unlockedBy("has_item", has(ModItems.grated_cheese))
+            .save(consumer); // TODO: Recipe Book doesn't ignore damage, recipe works manually however
     }
 }

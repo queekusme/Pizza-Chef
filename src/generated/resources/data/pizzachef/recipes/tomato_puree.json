@@ -5,7 +5,7 @@
       "item": "pizzachef:granite_grinding_stone"
     },
     {
-      "item": "pizzachef:tomato"
+      "tag": "pizzachef:tomato"
     }
   ],
   "result": {

@@ -69,7 +69,7 @@ public class ModItems
         ModItems.registerItemForBlock("tomato_seeds", BlockItem::new, () -> ModBlocks.crop_tomato);
         ModItems.registerItem("tomato_puree", Item::new, new Item.Properties());
 
-        ModItems.registerItem("block_of_cheese", Item::new, new Item.Properties());
+        ModItems.registerItem("block_of_cheese", CraftingRetainedItem::new, new Item.Properties().durability(8).setNoRepair());
         ModItems.registerItem("grated_cheese", Item::new, new Item.Properties());
 
         ModItems.registerItem("flour", Item::new, new Item.Properties());

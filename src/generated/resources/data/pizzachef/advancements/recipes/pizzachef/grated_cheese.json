@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "pizzachef:tomato_puree"
+      "pizzachef:grated_cheese"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "pizzachef:tomato"
+            "item": "pizzachef:block_of_cheese"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "pizzachef:tomato_puree"
+        "recipe": "pizzachef:grated_cheese"
       }
     }
   },

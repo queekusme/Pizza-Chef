@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "pizzachef:cooked_pizza_from_campfire_cooking"
+    ]
+  },
+  "criteria": {
+    "has_pizza_base": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "pizzachef:pizza_base"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "pizzachef:cooked_pizza_from_campfire_cooking"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_pizza_base",
+      "has_the_recipe"
+    ]
+  ]
+}

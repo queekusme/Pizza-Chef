@@ -1,6 +1,7 @@
 package com.queekus.pizzachef;
 
 import com.queekus.pizzachef.blocks.ModBlocks;
+import com.queekus.pizzachef.crafting.ModCrafting;
 import com.queekus.pizzachef.items.ModItems;
 
 import net.minecraft.client.renderer.RenderType;
@@ -23,6 +24,7 @@ public class PizzaChef
     {
         ModBlocks.register();
         ModItems.register();
+        ModCrafting.register();
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
     }

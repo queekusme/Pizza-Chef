@@ -1,0 +1,9 @@
+{
+  "type": "pizzachef:campfire_cooking_transfer_nbt",
+  "ingredient": {
+    "item": "pizzachef:pizza_base"
+  },
+  "result": "pizzachef:pizza",
+  "experience": 0.35,
+  "cookingtime": 600
+}

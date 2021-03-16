@@ -32,7 +32,7 @@ public class PizzaItem extends Item
     @Override
     public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context)
     {
-        IItemHandler handler = this.getHandlerForPizza(stack);
+        IItemHandler handler = PizzaItem.getHandlerForPizza(stack);
         for(int i = 0; i < handler.getSlots(); i++)
             handler.insertItem(i, new ItemStack(ModTags.Items.PIZZA_INGREDIENTS.getRandomElement(new Random())), false);
 
@@ -43,7 +43,7 @@ public class PizzaItem extends Item
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        IItemHandler handler = this.getHandlerForPizza(stack);
+        IItemHandler handler = PizzaItem.getHandlerForPizza(stack);
         Item pizzaItem = this.getItem();
         boolean isSlice = pizzaItem == ModItems.pizza_slice;
         String ingredientIndent = !isSlice ? "  " : "";
@@ -65,7 +65,7 @@ public class PizzaItem extends Item
         }
     }
 
-    public IItemHandler getHandlerForPizza(ItemStack stack)
+    public static IItemHandler getHandlerForPizza(ItemStack stack)
     {
         return new PizzaInventoryHandler(stack);
     }
@@ -107,6 +107,9 @@ public class PizzaItem extends Item
         {
             if(!this.canInsertInSlot(slot))
                 return stack;
+
+            if(stack == ItemStack.EMPTY)
+                return ItemStack.EMPTY;
 
             if(!simulate)
             {

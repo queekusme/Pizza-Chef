@@ -31,6 +31,7 @@ public class GranitePizzaSlabBlock extends Block
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
     {
         TileEntity te = worldIn.getBlockEntity(pos);

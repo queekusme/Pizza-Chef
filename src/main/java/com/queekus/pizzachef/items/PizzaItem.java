@@ -10,9 +10,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -27,16 +25,6 @@ public class PizzaItem extends Item
     public PizzaItem(Properties props)
     {
         super(props);
-    }
-
-    @Override
-    public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context)
-    {
-        // IItemHandler handler = PizzaItem.getHandlerForPizza(stack);
-        // for(int i = 0; i < handler.getSlots(); i++)
-        //     handler.insertItem(i, new ItemStack(ModTags.Items.PIZZA_INGREDIENTS.getRandomElement(new Random())), false);
-
-        return super.onItemUseFirst(stack, context);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.queekus.pizzachef.items;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -14,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -32,9 +32,9 @@ public class PizzaItem extends Item
     @Override
     public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context)
     {
-        IItemHandler handler = PizzaItem.getHandlerForPizza(stack);
-        for(int i = 0; i < handler.getSlots(); i++)
-            handler.insertItem(i, new ItemStack(ModTags.Items.PIZZA_INGREDIENTS.getRandomElement(new Random())), false);
+        // IItemHandler handler = PizzaItem.getHandlerForPizza(stack);
+        // for(int i = 0; i < handler.getSlots(); i++)
+        //     handler.insertItem(i, new ItemStack(ModTags.Items.PIZZA_INGREDIENTS.getRandomElement(new Random())), false);
 
         return super.onItemUseFirst(stack, context);
     }
@@ -48,15 +48,15 @@ public class PizzaItem extends Item
         boolean isSlice = pizzaItem == ModItems.pizza_slice;
         String ingredientIndent = !isSlice ? "  " : "";
 
-        for(int i = 0; i < handler.getSlots(); i++)
+        for(int i = handler.getSlots() - 1; i >= 0; i--)
         {
             ItemStack slotStack = handler.getStackInSlot(i);
 
             if(!isSlice)
             {
-                if(i == 0)
+                if(i == handler.getSlots() - 1)
                     tooltip.add(new StringTextComponent(TextFormatting.GRAY + "- " + TextFormatting.RESET + I18n.get("pizza.lore.left") + ":"));
-                else if(i == handler.getSlots() / 2)
+                else if(i == (handler.getSlots() / 2) - 1)
                     tooltip.add(new StringTextComponent(TextFormatting.GRAY + "- " + TextFormatting.RESET + I18n.get("pizza.lore.right") + ":"));
             }
 
@@ -111,6 +111,10 @@ public class PizzaItem extends Item
             if(stack == ItemStack.EMPTY)
                 return ItemStack.EMPTY;
 
+            boolean tagMatches = ModTags.Items.PIZZA_INGREDIENTS.contains(stack.getItem());
+            if(!tagMatches)
+                return stack;
+
             if(!simulate)
             {
                 stack.copy().setCount(this.getSlotLimit(slot));
@@ -156,6 +160,19 @@ public class PizzaItem extends Item
         {
             // Only allow items included in the ingredients tag
             return ModTags.Items.PIZZA_INGREDIENTS.contains(stack.getItem());
+        }
+
+        public NonNullList<ItemStack> getAllItems()
+        {
+            CompoundNBT pizzaTag = this.getPizzaCompound();
+            NonNullList<ItemStack> allSlots = NonNullList.create();
+
+            for(int i = 0; i < this.getSlots(); i++)
+                allSlots.add(ItemStack.of(pizzaTag.getCompound(this.getKeyForSlot(i))));
+
+            allSlots.removeIf((itemStack) -> itemStack.getCount() == 0);
+
+            return allSlots;
         }
 
         private boolean canInsertInSlot(int slot)

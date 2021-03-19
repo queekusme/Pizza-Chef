@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
@@ -23,6 +24,7 @@ public class ModBlocks
     private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, PizzaChef.MOD_ID);
 
     public static final CropsBlock crop_tomato = null;
+    public static final Block granite_pizza_slab = null;
 
     /**
      * Register a block under the Bottling namespace
@@ -43,6 +45,7 @@ public class ModBlocks
     public static void register()
     {
         ModBlocks.registerBlock("crop_tomato", CropsBlock::new, Block.Properties.of(Material.PLANT).harvestTool(ToolType.HOE).randomTicks().noCollission().sound(SoundType.HARD_CROP), false);
+        ModBlocks.registerBlock("granite_pizza_slab", GranitePizzaSlabBlock::new, Block.Properties.of(Material.STONE, MaterialColor.DIRT).requiresCorrectToolForDrops().strength(1.5F, 6.0F), true);
 
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

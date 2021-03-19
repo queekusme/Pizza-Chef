@@ -1,5 +1,7 @@
 {
   "block.pizzachef.crop_tomato": "Tomato Seeds",
+  "block.pizzachef.granite_pizza_slab": "Granite Pizza Slab",
+  "container.granite_pizza_slab": "Granite Pizza Slab",
   "item.pizzachef.block_of_cheese": "Block of Cheese",
   "item.pizzachef.flour": "Flour",
   "item.pizzachef.granite_grinding_stone": "Granite Grinding Stone",

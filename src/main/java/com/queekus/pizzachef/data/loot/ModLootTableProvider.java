@@ -67,6 +67,7 @@ public class ModLootTableProvider extends LootTableProvider
                             .hasProperty(BeetrootBlock.AGE, 7))
                 )
             );
+            add(ModBlocks.granite_pizza_slab, BlockLootTables::createNameableBlockEntityTable);
         }
 
         protected static LootTable.Builder createProduceCropDrops(Item crop, Item seed, ILootCondition.IBuilder p_218541_3_) {
@@ -90,6 +91,7 @@ public class ModLootTableProvider extends LootTableProvider
         {
             return new ArrayList<Block>(){{
                 add(ModBlocks.crop_tomato);
+                add(ModBlocks.granite_pizza_slab);
             }};
         }
     }

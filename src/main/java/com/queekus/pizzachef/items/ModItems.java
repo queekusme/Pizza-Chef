@@ -1,11 +1,11 @@
 package com.queekus.pizzachef.items;
 
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 import com.queekus.pizzachef.PizzaChef;
 import com.queekus.pizzachef.blocks.ModBlocks;
-import com.queekus.pizzachef.utils.Function2;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -54,7 +54,7 @@ public class ModItems
      * @param constr - class constructor e.g. BlockItem::new or CustomBlockItem::new
      * @param block - block to register an item for
      */
-    public static void registerItemForBlock(String id, Function2<Block, Properties, BlockItem> constr, Supplier<Block> block)
+    public static void registerItemForBlock(String id, BiFunction<Block, Properties, BlockItem> constr, Supplier<Block> block)
     {
         ITEMS.register(id, () -> constr.apply(block.get(), new Item.Properties().tab(PizzaChef.creativeTab)));
     }

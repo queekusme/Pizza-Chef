@@ -1,8 +1,6 @@
 {
-  "parent": "minecraft:block/slab",
+  "parent": "minecraft:block/carpet",
   "textures": {
-    "side": "minecraft:block/polished_granite",
-    "bottom": "minecraft:block/polished_granite",
-    "top": "minecraft:block/polished_granite"
+    "wool": "minecraft:block/polished_granite"
   }
 }

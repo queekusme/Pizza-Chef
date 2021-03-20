@@ -16,6 +16,8 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
@@ -49,17 +51,17 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
         super(ModTileEntities.GRANITE_PIZZA_SLAB.get());
     }
 
-    private ItemStack getPizza()
+    public ItemStack getPizza()
     {
         return this.pizzStack.get(PIZZA_SLOT);
     }
 
-    private boolean hasPizza()
+    public boolean hasPizza()
     {
-        return this.getPizza() != ItemStack.EMPTY;
+        return !this.getPizza().isEmpty();
     }
 
-    private PizzaInventoryHandler getPizzaHandler()
+    public PizzaInventoryHandler getPizzaHandler()
     {
         return (PizzaInventoryHandler) PizzaItem.getHandlerForPizza(this.getPizza());
     }
@@ -76,6 +78,8 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     public void load(BlockState state, CompoundNBT nbt)
     {
         super.load(state, nbt);
+
+        this.pizzStack.clear(); // remove current and replace with new
 
         ItemStackHelper.loadAllItems(nbt, this.pizzStack);
     }
@@ -113,10 +117,11 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     {
         NonNullList<ItemStack> slots = NonNullList.create();
 
-        slots.add(this.getPizza());
-
         if(this.hasPizza())
+        {
+            slots.add(this.getPizza());
             slots.addAll(this.getPizzaHandler().getAllItems());
+        }
 
         return slots;
     }
@@ -154,10 +159,16 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     {
         if (this.hasPizza())
         {
+            ItemStack itemStack;
             if(index == PIZZA_SLOT)
-                return ItemStackHelper.takeItem(this.pizzStack, index); // Ignore count as we only handle 1 per slot
+                itemStack = ItemStackHelper.takeItem(this.pizzStack, index); // Ignore count as we only handle 1 per slot
             else
-                this.getPizzaHandler().extractItem(index - 1, count, false); // -1 for Pizza Slot
+                itemStack = this.getPizzaHandler().extractItem(index - 1, count, false); // -1 for Pizza Slot
+
+            if(!itemStack.isEmpty())
+                this.setChanged();
+
+            return itemStack;
         }
 
         return ItemStack.EMPTY;
@@ -182,17 +193,16 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     {
         if(index == PIZZA_SLOT)
         {
-            ItemStack pizza = this.getPizza();
-            boolean incomingMatches = !stack.isEmpty() && stack.sameItem(pizza) && ItemStack.tagMatches(stack, pizza);
-
-            this.pizzStack.set(0, stack);
-
-            if (!incomingMatches)
+            if (this.getPizza().isEmpty())
+            {
+                this.pizzStack.set(0, stack);
                 this.setChanged();
+            }
         }
         else if(this.hasPizza())
         {
-            this.getPizzaHandler().insertItem(index - 1, stack, false); // -1 for Pizza Slot
+            if(this.getPizzaHandler().insertItem(index - 1, stack, false).isEmpty()) // -1 for Pizza Slot
+                this.setChanged();
         }
     }
 
@@ -276,5 +286,38 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     protected Container createMenu(int p_213906_1_, PlayerInventory p_213906_2_)
     {
         return null;
+    }
+
+    @Override
+    public void setChanged()
+    {
+        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
+        super.setChanged();
+    }
+
+    @Override
+    public SUpdateTileEntityPacket getUpdatePacket()
+    {
+        return new SUpdateTileEntityPacket(this.worldPosition, 42, this.save(new CompoundNBT()));
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
+    {
+        super.onDataPacket(net, pkt);
+        this.load(this.getBlockState(), pkt.getTag());
+    }
+
+    @Override
+    public CompoundNBT getUpdateTag()
+    {
+        return this.save(super.getUpdateTag());
+    }
+
+    @Override
+    public void handleUpdateTag(BlockState blockState, CompoundNBT parentNBTTagCompound)
+    {
+        super.handleUpdateTag(blockState, parentNBTTagCompound);
+        this.load(blockState, parentNBTTagCompound);
     }
 }

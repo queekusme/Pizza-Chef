@@ -4,12 +4,14 @@ import com.queekus.pizzachef.blocks.ModBlocks;
 import com.queekus.pizzachef.crafting.ModCrafting;
 import com.queekus.pizzachef.items.ModItems;
 import com.queekus.pizzachef.tileentities.ModTileEntities;
+import com.queekus.pizzachef.tileentities.renderers.GranitePizzaSlabTileEntityRenderer;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -42,5 +44,8 @@ public class PizzaChef
     private void clientSetup(final FMLClientSetupEvent event)
     {
         RenderTypeLookup.setRenderLayer(ModBlocks.crop_tomato, RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.granite_pizza_slab, RenderType.cutout());
+
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.GRANITE_PIZZA_SLAB.get(), GranitePizzaSlabTileEntityRenderer::new);
     }
 }

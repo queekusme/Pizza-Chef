@@ -45,7 +45,7 @@ public class ModBlocks
     public static void register()
     {
         ModBlocks.registerBlock("crop_tomato", CropsBlock::new, Block.Properties.of(Material.PLANT).harvestTool(ToolType.HOE).randomTicks().noCollission().sound(SoundType.HARD_CROP), false);
-        ModBlocks.registerBlock("granite_pizza_slab", GranitePizzaSlabBlock::new, Block.Properties.of(Material.STONE, MaterialColor.DIRT).requiresCorrectToolForDrops().strength(1.5F, 6.0F), true);
+        ModBlocks.registerBlock("granite_pizza_slab", GranitePizzaSlabBlock::new, Block.Properties.of(Material.STONE, MaterialColor.DIRT).requiresCorrectToolForDrops().strength(1.5F, 6.0F).noOcclusion(), true);
 
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

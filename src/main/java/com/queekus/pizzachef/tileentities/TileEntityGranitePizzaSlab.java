@@ -4,9 +4,8 @@ import java.util.Arrays;
 
 import javax.annotation.Nullable;
 
-import com.queekus.pizzachef.items.ModItems;
-import com.queekus.pizzachef.items.PizzaItem;
-import com.queekus.pizzachef.items.PizzaItem.PizzaInventoryHandler;
+import com.queekus.pizzachef.api.IPizza;
+import com.queekus.pizzachef.api.PizzaInventoryHandler;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -44,7 +43,7 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     private static final int[] SLOTS_LEFT = new int[]{ LEFT_0, LEFT_1, LEFT_2, LEFT_3 };
     private static final int[] SLOTS_RIGHT = new int[]{ RIGHT_0, RIGHT_1, RIGHT_2, RIGHT_3 };
 
-   protected NonNullList<ItemStack> pizzStack = NonNullList.withSize(1, ItemStack.EMPTY);
+    protected NonNullList<ItemStack> pizzStack = NonNullList.withSize(1, ItemStack.EMPTY);
 
     public TileEntityGranitePizzaSlab()
     {
@@ -63,7 +62,7 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
 
     public PizzaInventoryHandler getPizzaHandler()
     {
-        return (PizzaInventoryHandler) PizzaItem.getHandlerForPizza(this.getPizza());
+        return (PizzaInventoryHandler) IPizza.getHandlerForPizza(this.getPizza());
     }
 
     @Override
@@ -264,7 +263,7 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     public boolean canPlaceItem(int index, ItemStack stack)
     {
         if (index == PIZZA_SLOT)
-            return !this.hasPizza() && stack.getItem() == ModItems.pizza_base;
+            return !this.hasPizza() && stack.getItem() instanceof IPizza;
 
         return this.hasPizza() && this.getPizzaHandler().insertItem(index - 1, stack, true).getCount() == ItemStack.EMPTY.getCount();  // -1 for Pizza Slot
     }

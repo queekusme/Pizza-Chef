@@ -3,7 +3,6 @@ package com.queekus.pizzachef.blocks;
 import com.queekus.pizzachef.tileentities.ModTileEntities;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
@@ -49,11 +48,5 @@ public class GranitePizzaSlabBlock extends Block
             InventoryHelper.dropContents(worldIn, pos, (IInventory)te);
 
         super.onRemove(state, worldIn, pos, newState, isMoving);
-    }
-
-    @Override
-    public BlockRenderType getRenderShape(BlockState blockState)
-    {
-       return BlockRenderType.MODEL;
     }
 }

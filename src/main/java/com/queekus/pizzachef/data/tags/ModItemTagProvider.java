@@ -20,8 +20,16 @@ public class ModItemTagProvider extends ItemTagsProvider
     {
         collectTomatoTypes();
         mergeTomatoTypes();
+        collectMisc();
 
         collectPizzaIngredients();
+    }
+
+    private void collectMisc()
+    {
+        tag(ModTags.Items.CHEESE_FORGE).add(ModItems.block_of_cheese);
+        tag(ModTags.Items.FLOUR_FORGE).add(ModItems.flour);
+        tag(ModTags.Items.SALT_FORGE).add(ModItems.salt);
     }
 
     private void collectTomatoTypes()

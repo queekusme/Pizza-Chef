@@ -2,31 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pizzachef:grated_cheese"
+      "tag": "forge:items/salt/salt"
     },
     {
-      "item": "pizzachef:grated_cheese"
+      "item": "minecraft:milk_bucket"
     },
     {
-      "item": "pizzachef:grated_cheese"
-    },
-    {
-      "item": "pizzachef:grated_cheese"
-    },
-    {
-      "item": "pizzachef:grated_cheese"
-    },
-    {
-      "item": "pizzachef:grated_cheese"
-    },
-    {
-      "item": "pizzachef:grated_cheese"
-    },
-    {
-      "item": "pizzachef:grated_cheese"
-    },
-    {
-      "item": "pizzachef:granite_grinding_stone"
+      "item": "minecraft:bowl"
     }
   ],
   "result": {

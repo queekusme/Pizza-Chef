@@ -2,25 +2,25 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pizzachef:flour"
+      "tag": "forge:items/flour/flour"
     },
     {
-      "item": "pizzachef:flour"
+      "tag": "forge:items/flour/flour"
     },
     {
-      "item": "pizzachef:flour"
+      "tag": "forge:items/flour/flour"
     },
     {
-      "item": "pizzachef:flour"
+      "tag": "forge:items/flour/flour"
     },
     {
-      "item": "pizzachef:flour"
+      "tag": "forge:items/flour/flour"
     },
     {
-      "item": "pizzachef:flour"
+      "tag": "forge:items/flour/flour"
     },
     {
-      "item": "pizzachef:flour"
+      "tag": "forge:items/flour/flour"
     },
     {
       "item": "minecraft:water_bucket"

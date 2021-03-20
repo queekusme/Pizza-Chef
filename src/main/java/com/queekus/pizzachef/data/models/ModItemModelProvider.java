@@ -28,6 +28,8 @@ public class ModItemModelProvider extends ItemModelProvider
         builder(ITEM_GENERATED, "tomato_seeds");
         builder(ITEM_GENERATED, "tomato_puree");
 
+        builder(ITEM_GENERATED, "salt");
+
         builder(ITEM_GENERATED, "block_of_cheese");
         builder(ITEM_GENERATED, "grated_cheese");
 

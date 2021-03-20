@@ -6,12 +6,32 @@
     ]
   },
   "criteria": {
-    "has_item": {
+    "has_item_milk": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "pizzachef:grated_cheese"
+            "item": "minecraft:milk_bucket"
+          }
+        ]
+      }
+    },
+    "has_item_bowl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:bowl"
+          }
+        ]
+      }
+    },
+    "has_item_salt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "pizzachef:salt"
           }
         ]
       }
@@ -25,7 +45,9 @@
   },
   "requirements": [
     [
-      "has_item",
+      "has_item_milk",
+      "has_item_bowl",
+      "has_item_salt",
       "has_the_recipe"
     ]
   ]

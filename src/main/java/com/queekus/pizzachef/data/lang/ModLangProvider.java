@@ -65,6 +65,11 @@ public class ModLangProvider extends LanguageProvider
             entry.addEntry("en_us", "Tomato Purée");
         }));
 
+        add(ModLocaleEntry.create(ModItems.salt, (entry) ->
+        {
+            entry.addEntry("en_us", "Salt");
+        }));
+
         add(ModLocaleEntry.create(ModItems.block_of_cheese, (entry) ->
         {
             entry.addEntry("en_us", "Block of Cheese");

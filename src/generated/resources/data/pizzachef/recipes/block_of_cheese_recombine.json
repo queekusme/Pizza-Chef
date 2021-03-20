@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pizzachef:grated_cheese"
+    },
+    {
+      "item": "pizzachef:grated_cheese"
+    },
+    {
+      "item": "pizzachef:grated_cheese"
+    },
+    {
+      "item": "pizzachef:grated_cheese"
+    },
+    {
+      "item": "pizzachef:grated_cheese"
+    },
+    {
+      "item": "pizzachef:grated_cheese"
+    },
+    {
+      "item": "pizzachef:grated_cheese"
+    },
+    {
+      "item": "pizzachef:grated_cheese"
+    },
+    {
+      "item": "pizzachef:granite_grinding_stone"
+    }
+  ],
+  "result": {
+    "item": "pizzachef:block_of_cheese"
+  }
+}

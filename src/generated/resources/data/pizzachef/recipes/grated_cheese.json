@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "pizzachef:block_of_cheese"
+      "tag": "forge:items/cheese/cheese"
     }
   ],
   "result": {

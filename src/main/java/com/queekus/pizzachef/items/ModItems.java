@@ -29,6 +29,8 @@ public class ModItems
     public static final Item tomato_seeds = null;
     public static final Item tomato_puree = null;
 
+    public static final Item salt = null;
+
     public static final Item block_of_cheese = null;
     public static final Item grated_cheese = null;
 
@@ -68,6 +70,8 @@ public class ModItems
         ModItems.registerItem("tomato", Item::new, new Item.Properties());
         ModItems.registerItemForBlock("tomato_seeds", BlockItem::new, () -> ModBlocks.crop_tomato);
         ModItems.registerItem("tomato_puree", Item::new, new Item.Properties());
+
+        ModItems.registerItem("salt", Item::new, new Item.Properties());
 
         ModItems.registerItem("block_of_cheese", CraftingRetainedItem::new, new Item.Properties().durability(8).setNoRepair());
         ModItems.registerItem("grated_cheese", Item::new, new Item.Properties());

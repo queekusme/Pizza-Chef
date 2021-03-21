@@ -5,6 +5,14 @@ name: Build Pizza Chef Mod
 
 on:
   workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Release Type'
+        required: true
+        default: 'release'
+  push:
+    tags:
+      - '*'
 
 env:
   CURSEFORGE_API_UPLOAD: ${{ secrets.CURSEFORGE_API_UPLOAD }}
@@ -21,5 +29,12 @@ jobs:
         java-version: 1.8
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+    - name: Update Release Type for Nightly
+      if: github.event_name == 'schedule'
+      run: sed -i -e 's/curseforge_release_type=\w*/curseforge_release_type=alpha/g' gradle.properties
+      run: chmod +x gradlew
+    - name: Update Release Type for Manual Build
+      if: github.event_name == 'schedule'
+      run: sed -i -e 's/curseforge_release_type=\w*/curseforge_release_type=${{ github.event.inputs.tags }}/g' gradle.properties
     - name: Build with Gradle
       run: ./gradlew build

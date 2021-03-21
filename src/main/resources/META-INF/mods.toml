@@ -1,25 +1,28 @@
 modLoader="javafml"
-loaderVersion="[36,)"
+loaderVersion="${loader_version_range}"
+issueTrackerURL="https://github.com/queekusme/Pizza-Chef/issues"
 
 license="MIT"
 
 [[mods]]
     modId="pizzachef"
-    version="${file.jarVersion}"
+    version="${mod_version}"
     displayName="Pizza Chef"
+    displayURL="https://github.com/queekusme/Pizza-Chef/"
     authors="queekusme"
+    logoFile="logo.png"
     description='Bake Delicious Pizzas for your Zombie and Creeper Friends'
 
     [[dependencies.pizzachef]]
         modId="forge"
         mandatory=true
-        versionRange="[36,)"
+        versionRange="${forge_version_range}"
         ordering="NONE"
         side="BOTH"
 
     [[dependencies.pizzachef]]
         modId="minecraft"
         mandatory=true
-        versionRange="[1.16.5,1.17)"
+        versionRange="${minecraft_version_range}"
         ordering="NONE"
         side="BOTH"

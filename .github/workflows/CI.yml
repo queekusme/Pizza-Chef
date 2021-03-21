@@ -5,9 +5,9 @@ name: Continuous Integration
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ "1.16.x" ]
   pull_request:
-    branches: [ $default-branch ]
+    branches: [ "1.16.x" ]
 
 env:
   CURSEFORGE_API_UPLOAD: NOPE

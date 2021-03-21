@@ -194,7 +194,7 @@ publishing {
     }
 }
 
-def curseforge_changelog = "git log $(git describe --tags --abbrev=0)..HEAD --pretty=oneline".execute().text.trim()
+def curseforge_changelog = "git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:\"%s\"".execute().text.trim()
 
 curseforge {
   apiKey = System.env.CURSEFORGE_API_UPLOAD

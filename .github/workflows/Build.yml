@@ -22,6 +22,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v2
+
     - name: "Get commits in last 24 hours"
       id: commit_count
       run: echo ::set-output name=commits_in_last_24::$(git rev-list --count HEAD --not $(git rev-list -n1 --before="24 hours" --first-parent HEAD))
@@ -30,8 +32,6 @@ jobs:
       if: steps.commit_count.outputs.commits_in_last_24 == '15' && github.event_name == 'workflow_dispatch'
       run: echo ::set-output name=run_nightly::true
 
-    - uses: actions/checkout@v2
-      if: steps.should_nightly.outputs.run_nightly == 'true'
     - name: Set up JDK 1.8
       if: steps.should_nightly.outputs.run_nightly == 'true'
       uses: actions/setup-java@v1

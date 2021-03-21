@@ -20,6 +20,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && git rev-list --count HEAD --not $(git rev-list -n1 --before="24 hours" --first-parent HEAD) != 14
 
     steps:
     - uses: actions/checkout@v2

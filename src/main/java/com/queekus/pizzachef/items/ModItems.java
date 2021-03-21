@@ -50,6 +50,18 @@ public class ModItems
     }
 
     /**
+     * Register an item under the pizzachef namespace
+     *
+     * @param id - id of item to create
+     * @param constr - class constructor e.g. Item::new or CustomItem::new
+     * @param bProperties - item properties the item should have
+     */
+    public static void registerPizzaTopping(String id, BiFunction<Properties, Float, Item> constr, Properties iProperties, float tesrScale)
+    {
+        ITEMS.register(id, () -> constr.apply(iProperties.tab(PizzaChef.creativeTab), tesrScale));
+    }
+
+    /**
      * Register an item for a block under the pizzachef namespace
      *
      * @param id - id of item to create
@@ -69,12 +81,12 @@ public class ModItems
 
         ModItems.registerItem("tomato", Item::new, new Item.Properties());
         ModItems.registerItemForBlock("tomato_seeds", BlockItem::new, () -> ModBlocks.crop_tomato);
-        ModItems.registerItem("tomato_puree", Item::new, new Item.Properties());
+        ModItems.registerPizzaTopping("tomato_puree", PizzaToppingItem::new, new Item.Properties(), 0.2f);
 
         ModItems.registerItem("salt", Item::new, new Item.Properties());
 
         ModItems.registerItem("block_of_cheese", CraftingRetainedItem::new, new Item.Properties().durability(8).setNoRepair());
-        ModItems.registerItem("grated_cheese", Item::new, new Item.Properties());
+        ModItems.registerPizzaTopping("grated_cheese", PizzaToppingItem::new, new Item.Properties(), 0.2f);
 
         ModItems.registerItem("flour", Item::new, new Item.Properties());
 

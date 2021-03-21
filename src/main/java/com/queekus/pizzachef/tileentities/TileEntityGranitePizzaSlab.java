@@ -65,6 +65,16 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
         return (PizzaInventoryHandler) IPizza.getHandlerForPizza(this.getPizza());
     }
 
+    public static int[] getPizzaLeftSlots()
+    {
+        return new int[]{ LEFT_0, LEFT_1, LEFT_2, LEFT_3 };
+    }
+
+    public static int[] getPizzaRightSlots()
+    {
+        return new int[]{ RIGHT_0, RIGHT_1, RIGHT_2, RIGHT_3 };
+    }
+
     @Override
     public int getContainerSize()
     {
@@ -147,7 +157,7 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
             if(index == PIZZA_SLOT)
                 return this.getPizza();
             else
-                this.getPizzaHandler().getStackInSlot(index - 1); // -1 for Pizza Slot
+                return this.getPizzaHandler().getStackInSlot(index - 1); // -1 for Pizza Slot
         }
 
         return ItemStack.EMPTY;
@@ -290,7 +300,8 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     @Override
     public void setChanged()
     {
-        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
+        if(!level.isClientSide)
+            this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
         super.setChanged();
     }
 

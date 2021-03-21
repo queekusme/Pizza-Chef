@@ -4,12 +4,6 @@
 name: Build Pizza Chef Mod
 
 on:
-  workflow_dispatch:
-    inputs:
-      release_type:
-        description: 'Release Type'
-        required: true
-        default: 'release'
   push:
     tags:
       - '*'
@@ -28,9 +22,6 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-
-    - name: Update Release Type for Manual Build
-      run: sed -i -e 's/curseforge_release_type=\w*/curseforge_release_type=${{ github.event.inputs.release_type }}/g' gradle.properties
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew

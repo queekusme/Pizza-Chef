@@ -9,6 +9,7 @@ on:
 
 env:
   CURSEFORGE_API_UPLOAD: ${{ secrets.CURSEFORGE_API_UPLOAD }}
+  GITHUB_ACTIONS_NIGHTLY: true
 
 jobs:
   build:

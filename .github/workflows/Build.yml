@@ -24,30 +24,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: "Get commits in last 24 hours"
-      id: commit_count
-      run: echo ::set-output name=commits_in_last_24::$(git rev-list --count HEAD --not $(git rev-list -n1 --before="24 hours" --first-parent HEAD))
-    - name: Determine if we should build
-      id: should_nightly
-      if: steps.commit_count.outputs.commits_in_last_24 == '15' && github.event_name == 'workflow_dispatch'
-      run: echo ::set-output name=run_nightly::true
-
     - name: Set up JDK 1.8
-      if: steps.should_nightly.outputs.run_nightly == 'true'
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
 
-    - name: Update Release Type for Nightly
-      if: steps.should_nightly.outputs.run_nightly == 'true' && github.event_name == 'schedule'
-      run: sed -i -e 's/curseforge_release_type=\w*/curseforge_release_type=alpha/g' gradle.properties
     - name: Update Release Type for Manual Build
-      if: steps.should_nightly.outputs.run_nightly == 'true' && github.event_name == 'workflow_dispatch'
       run: sed -i -e 's/curseforge_release_type=\w*/curseforge_release_type=${{ github.event.inputs.release_type }}/g' gradle.properties
 
     - name: Grant execute permission for gradlew
-      if: steps.should_nightly.outputs.run_nightly == 'true'
       run: chmod +x gradlew
-    - name: Build with Gradle
-      if: steps.should_nightly.outputs.run_nightly == 'true'
-      run: ./gradlew build
+    - name: Build with Gradle, Upload to Curseforge
+      run: ./gradlew curseforge

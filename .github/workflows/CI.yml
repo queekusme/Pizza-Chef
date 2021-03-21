@@ -4,6 +4,7 @@
 name: Continuous Integration
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "1.16.x" ]
   pull_request:

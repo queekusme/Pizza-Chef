@@ -32,9 +32,8 @@ jobs:
     - name: Update Release Type for Nightly
       if: github.event_name == 'schedule'
       run: sed -i -e 's/curseforge_release_type=\w*/curseforge_release_type=alpha/g' gradle.properties
-      run: chmod +x gradlew
     - name: Update Release Type for Manual Build
-      if: github.event_name == 'push'
+      if: github.event_name == 'workflow_dispatch'
       run: sed -i -e 's/curseforge_release_type=\w*/curseforge_release_type=${{ github.event.inputs.tags }}/g' gradle.properties
     - name: Build with Gradle
       run: ./gradlew build

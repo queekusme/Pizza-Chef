@@ -2,6 +2,7 @@ package com.queekus.pizzachef.data;
 
 import com.queekus.pizzachef.PizzaChef;
 import com.queekus.pizzachef.data.lang.ModLangProvider;
+import com.queekus.pizzachef.data.loot.ModLootModifierProvider;
 import com.queekus.pizzachef.data.loot.ModLootTableProvider;
 import com.queekus.pizzachef.data.models.ModBlockStateProvider;
 import com.queekus.pizzachef.data.models.ModItemModelProvider;
@@ -38,6 +39,7 @@ public class DataGenerators
     private static void gatherLoot(DataGenerator dataGenerator)
     {
         dataGenerator.addProvider(new ModLootTableProvider(dataGenerator));
+        dataGenerator.addProvider(new ModLootModifierProvider(dataGenerator));
     }
 
     private static void gatherModels(DataGenerator dataGenerator, ExistingFileHelper existingFileHelper) throws InterruptedException

@@ -30,6 +30,7 @@ f6ba4dbfa55935dcfb8967fa468008ec39798f16 assets/pizzachef/models/item/pizza_base
 a19f9c7e965e31e505991b3edecba97ce51ad46a assets/pizzachef/models/item/tomato.json
 8b3a7c2195c2fb935419b8d983c444b8d94f113b assets/pizzachef/models/item/tomato_puree.json
 cc168c201b1aed849a41929642d8cdf76c6f133a assets/pizzachef/models/item/tomato_seeds.json
+f141d984db1553266ca52ae43609d9112fd2dfc5 data/forge/loot_modifiers/global_loot_modifiers.json
 acbb63538935862ea1705875af02f1394c50c11c data/forge/tags/items/items/cheese/cheese.json
 93f29028d1b01ac860bbce5f2f9979ac961c0fe5 data/forge/tags/items/items/crops/tomato.json
 576caf432801667ec99e12c7df754fc72d2adc14 data/forge/tags/items/items/flour/flour.json
@@ -46,6 +47,8 @@ bb94e8f8dcebc58ba7fc1b63ee0360ee905aafeb data/pizzachef/advancements/recipes/piz
 6bc9267d046b2579f073880b89b09da6e62ace88 data/pizzachef/advancements/recipes/pizzachef/pizza_base.json
 d33fcf40c30721a6052e743b219ed2edff24a4c9 data/pizzachef/advancements/recipes/pizzachef/tomato_puree.json
 8db4bc5bb90a461672d1a350134e09d0a1cbf852 data/pizzachef/advancements/recipes/pizzachef/tomato_seeds.json
+ccbcf427a929a9f79edd2cc008e5a3b9bb69abd0 data/pizzachef/loot_modifiers/grass.json
+6c62ba3ef4b0e881d712001f91285b15d025d12c data/pizzachef/loot_modifiers/sand.json
 b1e392a76585f198bc38d90d60f82528b8ae9bfd data/pizzachef/loot_tables/blocks/crop_tomato.json
 b3155c02b7d19ea69dc034d7239fb1a55b9dff9e data/pizzachef/loot_tables/blocks/granite_pizza_slab.json
 78e75989a9363fd04701aa8a1fd054c1666f96e3 data/pizzachef/recipes/block_of_cheese.json

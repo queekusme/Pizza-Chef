@@ -197,7 +197,7 @@ publishing {
 def curseforge_changelog = ""
 
 if(System.env.GITHUB_ACTIONS_NIGHTLY)
-    curseforge_changelog = "git log --after=\"24 hours\" --pretty=format:%s".execute().text.trim()
+    curseforge_changelog = "git log --after=\"24 hours\" --pretty=format:\"- %s\"".execute().text.trim()
 else
     curseforge_changelog = "git log \$5(git describe --tags --abbrev=0)..HEAD --pretty=format:\"- %s\"".execute().text.trim()
 

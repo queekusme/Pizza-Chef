@@ -14,8 +14,7 @@ public class ModLootModifiers
 
     public static void register()
     {
-        LOOT_MODIFIER_SERIALIZERS.register("grass", AdditionalItemsLootModifier.Serializer::new);
-        LOOT_MODIFIER_SERIALIZERS.register("sand", AdditionalItemsLootModifier.Serializer::new);
+        LOOT_MODIFIER_SERIALIZERS.register("additional", AdditionalItemsLootModifier.Serializer::new);
 
         LOOT_MODIFIER_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

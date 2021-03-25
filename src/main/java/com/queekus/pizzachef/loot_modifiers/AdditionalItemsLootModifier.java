@@ -1,6 +1,5 @@
 package com.queekus.pizzachef.loot_modifiers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +16,6 @@ import net.minecraft.loot.LootSerializers;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -36,14 +34,7 @@ public class AdditionalItemsLootModifier extends LootModifier
     @Override
     protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context)
     {
-        try(ServerWorld world = context.getLevel())
-        {
-            generatedLoot.add(new ItemStack(this.additionalItems[world.random.nextInt(this.additionalItems.length)]));
-        }
-        catch(IOException e)
-        {
-            // Do nothing...
-        }
+        generatedLoot.add(new ItemStack(this.additionalItems[context.getLevel().random.nextInt(this.additionalItems.length)]));
 
         return generatedLoot;
     }

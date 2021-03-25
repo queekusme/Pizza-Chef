@@ -11,6 +11,7 @@ import net.minecraft.loot.conditions.BlockStateProperty;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.loot.conditions.RandomChance;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 
 public class ModLootModifierProvider extends GlobalLootModifierProvider
 {
@@ -22,9 +23,12 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider
     @Override
     protected void start()
     {
+        GlobalLootModifierSerializer<AdditionalItemsLootModifier> serializerInstance
+            = new AdditionalItemsLootModifier.Serializer().setRegistryName("pizzachef:additional");
+
         add(
             "grass",
-            new AdditionalItemsLootModifier.Serializer().setRegistryName("pizzachef:grass"),
+            serializerInstance,
             new AdditionalItemsLootModifier(
                 new ILootCondition[]
                 {
@@ -34,7 +38,7 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider
                 new Item[]{ ModItems.tomato_seeds }));
         add(
             "sand",
-            new AdditionalItemsLootModifier.Serializer().setRegistryName("pizzachef:sand"),
+            serializerInstance,
             new AdditionalItemsLootModifier(
                 new ILootCondition[]
                 {

@@ -105,17 +105,12 @@ public class ModRecipeProvider extends RecipeProvider
             .save(consumer);
 
         ShapelessRecipeBuilder
-            .shapeless(ModItems.grated_cheese)
+            .shapeless(ModItems.grated_cheese, 8)
             .requires(ModTags.Items.CHEESE_FORGE)
+            .requires(Items.BOWL)
+            .requires(Items.STICK)
             .unlockedBy("has_item", has(ModItems.block_of_cheese))
             .save(consumer); // TODO: Recipe Book doesn't ignore damage, recipe works manually however
-
-        ShapelessRecipeBuilder
-            .shapeless(ModItems.block_of_cheese)
-            .requires(ModItems.grated_cheese, 8)
-            .requires(ModItems.granite_grinding_stone)
-            .unlockedBy("has_item", has(ModItems.grated_cheese))
-            .save(consumer, new ResourceLocation(PizzaChef.MOD_ID, "block_of_cheese_recombine")); // TODO: Recipe Book doesn't ignore damage, recipe works manually however
     }
 
     private void cookRecipes(Consumer<IFinishedRecipe> consumer, CookingRecipeSerializer<?> serializer, String serializerId, int cookTime)

@@ -3,9 +3,16 @@
   "ingredients": [
     {
       "tag": "forge:items/cheese/cheese"
+    },
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "minecraft:stick"
     }
   ],
   "result": {
-    "item": "pizzachef:grated_cheese"
+    "item": "pizzachef:grated_cheese",
+    "count": 8
   }
 }

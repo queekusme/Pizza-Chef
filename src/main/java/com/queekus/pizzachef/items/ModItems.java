@@ -85,7 +85,7 @@ public class ModItems
 
         ModItems.registerItem("salt", Item::new, new Item.Properties());
 
-        ModItems.registerItem("block_of_cheese", CraftingRetainedItem::new, new Item.Properties().durability(8).setNoRepair());
+        ModItems.registerItem("block_of_cheese", Item::new, new Item.Properties());
         ModItems.registerPizzaTopping("grated_cheese", PizzaToppingItem::new, new Item.Properties(), 0.2f);
 
         ModItems.registerItem("flour", Item::new, new Item.Properties());

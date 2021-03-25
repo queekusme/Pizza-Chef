@@ -36,10 +36,8 @@ public class PizzaItem extends Item implements IPizza
     {
         if(this == ModItems.pizza_slice)
             return 4; // Slice is 1/8th of a pizza and so depends on the side it was from
-        else if (this == ModItems.pizza_base)
-            return 8; // 4x slots per side 0-3 is left, 4-7 is right
 
-        return 0;
+        return 8; // 4x slots per side 0-3 is left, 4-7 is right
     }
 
     @Override

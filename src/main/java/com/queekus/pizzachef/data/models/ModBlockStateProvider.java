@@ -1,11 +1,15 @@
 package com.queekus.pizzachef.data.models;
 
+import java.util.Collections;
+
 import com.queekus.pizzachef.PizzaChef;
+import com.queekus.pizzachef.blocks.CropsBlockMultiHeight;
 import com.queekus.pizzachef.blocks.ModBlocks;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -30,10 +34,16 @@ public class ModBlockStateProvider extends BlockStateProvider
     private void growingCrop(CropsBlock block, String name)
     {
         VariantBlockStateBuilder builder = getVariantBuilder(block);
-        for(int i = 0; i <= 7; i++)
+        for(int i = 0; i <= Collections.max(BlockStateProperties.AGE_7.getPossibleValues()); i++)
         {
-            builder.partialState().with(CropsBlock.AGE, i)
-                .modelForState().modelFile(models().crop("crop_tomato_" + i, modLoc("block/crop_tomato_" + i))).addModel();
+            for(int j = 0; j <= Collections.max(CropsBlockMultiHeight.HEIGHT_2.getPossibleValues()); j++)
+            {
+                String cropFileName = "crop_tomato_" + j + "_" + i;
+                builder.partialState()
+                    .with(CropsBlock.AGE, i)
+                    .with(CropsBlockMultiHeight.HEIGHT_2, j)
+                    .modelForState().modelFile(models().crop(cropFileName, modLoc("block/" + cropFileName))).addModel();
+            }
         }
     }
 }

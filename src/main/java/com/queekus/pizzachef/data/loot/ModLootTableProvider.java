@@ -9,12 +9,13 @@ import java.util.function.Supplier;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import com.queekus.pizzachef.blocks.CropsBlockMultiHeight;
 import com.queekus.pizzachef.blocks.ModBlocks;
 import com.queekus.pizzachef.items.ModItems;
 
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
-import net.minecraft.block.BeetrootBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.CropsBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.LootTableProvider;
 import net.minecraft.data.loot.BlockLootTables;
@@ -64,23 +65,26 @@ public class ModLootTableProvider extends LootTableProvider
                     BlockStateProperty
                         .hasBlockStateProperties(ModBlocks.crop_tomato)
                         .setProperties(StatePropertiesPredicate.Builder.properties()
-                            .hasProperty(BeetrootBlock.AGE, 7))
+                            .hasProperty(CropsBlock.AGE, 7)
+                            .hasProperty(CropsBlockMultiHeight.HEIGHT_2, 1))
                 )
             );
             add(ModBlocks.granite_pizza_slab, BlockLootTables::createNameableBlockEntityTable);
         }
 
-        protected static LootTable.Builder createProduceCropDrops(Item crop, Item seed, ILootCondition.IBuilder p_218541_3_) {
+        protected static LootTable.Builder createProduceCropDrops(Item crop, Item seed, ILootCondition.IBuilder cropCondition)
+        {
             return LootTable.lootTable()
                 .withPool(
                     LootPool.lootPool()
                         .add(
                             ItemLootEntry.lootTableItem(crop)
-                                .when(p_218541_3_)
-                                .otherwise(ItemLootEntry.lootTableItem(seed))))
+                                .when(cropCondition)
+                                .otherwise(
+                                    ItemLootEntry.lootTableItem(seed))))
                 .withPool(
                     LootPool.lootPool()
-                        .when(p_218541_3_)
+                        .when(cropCondition)
                         .add(
                             ItemLootEntry.lootTableItem(crop)
                                 .apply(ApplyBonus.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))));

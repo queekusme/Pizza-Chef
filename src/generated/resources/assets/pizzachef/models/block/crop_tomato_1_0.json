@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/crop",
   "textures": {
-    "crop": "pizzachef:block/crop_tomato_3"
+    "crop": "pizzachef:block/crop_tomato_1_0"
   }
 }

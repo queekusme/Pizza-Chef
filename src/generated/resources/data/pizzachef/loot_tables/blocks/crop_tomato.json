@@ -14,7 +14,8 @@
                   "condition": "minecraft:block_state_property",
                   "block": "pizzachef:crop_tomato",
                   "properties": {
-                    "age": "7"
+                    "age": "7",
+                    "height": "1"
                   }
                 }
               ],
@@ -52,7 +53,8 @@
           "condition": "minecraft:block_state_property",
           "block": "pizzachef:crop_tomato",
           "properties": {
-            "age": "7"
+            "age": "7",
+            "height": "1"
           }
         }
       ]

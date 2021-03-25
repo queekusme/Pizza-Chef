@@ -6,6 +6,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.queekus.pizzachef.PizzaChef;
 import com.queekus.pizzachef.api.IPizzaTopping;
+import com.queekus.pizzachef.api.PizzaSide;
 import com.queekus.pizzachef.items.ModItems;
 import com.queekus.pizzachef.tileentities.TileEntityGranitePizzaSlab;
 
@@ -44,8 +45,8 @@ public class GranitePizzaSlabTileEntityRenderer extends TileEntityRenderer<TileE
         if(!tileEntity.hasPizza())
             return;
 
-        renderSide(tileEntity, partialTicks, matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, Side.LEFT);
-        renderSide(tileEntity, partialTicks, matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, Side.RIGHT);
+        renderSide(tileEntity, partialTicks, matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, PizzaSide.LEFT);
+        renderSide(tileEntity, partialTicks, matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, PizzaSide.RIGHT);
 
         renderPizza(tileEntity, matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
     }
@@ -57,7 +58,7 @@ public class GranitePizzaSlabTileEntityRenderer extends TileEntityRenderer<TileE
         IRenderTypeBuffer bufferIn,
         int combinedLightIn,
         int combinedOverlayIn,
-        Side side
+        PizzaSide side
     )
     {
         Random random = new Random(1);
@@ -78,7 +79,7 @@ public class GranitePizzaSlabTileEntityRenderer extends TileEntityRenderer<TileE
         IRenderTypeBuffer bufferIn,
         int combinedLightIn,
         int combinedOverlayIn,
-        Side side,
+        PizzaSide side,
         ItemStack topping,
         int layer,
         Random random
@@ -153,20 +154,5 @@ public class GranitePizzaSlabTileEntityRenderer extends TileEntityRenderer<TileE
             return PIZZA_COOKED;
 
         return PIZZA_UNCOOKED;
-    }
-
-    enum Side
-    {
-        LEFT(0.5d, TileEntityGranitePizzaSlab.getPizzaLeftSlots()),
-        RIGHT(0.1d, TileEntityGranitePizzaSlab.getPizzaRightSlots());
-
-        public final double offsetX;
-        public final int[] slots;
-
-        Side(double offsetX, int[] slots)
-        {
-            this.offsetX = offsetX;
-            this.slots = slots;
-        }
     }
 }

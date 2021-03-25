@@ -37,6 +37,8 @@ public class ModItems
     public static final Item flour = null;
     public static final Item granite_grinding_stone = null;
 
+    public static final Item pizza_cutter = null;
+
     /**
      * Register an item under the pizzachef namespace
      *
@@ -91,6 +93,8 @@ public class ModItems
         ModItems.registerItem("flour", Item::new, new Item.Properties());
 
         ModItems.registerItem("granite_grinding_stone", CraftingRetainedItem::new, new Item.Properties().durability(64).setNoRepair());
+
+        ModItems.registerItem("pizza_cutter", Item::new, new Item.Properties().durability(64));
 
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

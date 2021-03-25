@@ -23,6 +23,9 @@ public class ModItemTagProvider extends ItemTagsProvider
         collectMisc();
 
         collectPizzaIngredients();
+        collectPizzaCutterItems();
+
+        collectNuggets();
     }
 
     private void collectMisc()
@@ -58,5 +61,16 @@ public class ModItemTagProvider extends ItemTagsProvider
         tag(ModTags.Items.PIZZA_INGREDIENTS).add(Items.COOKED_SALMON);
         tag(ModTags.Items.PIZZA_INGREDIENTS).add(Items.BEETROOT);
         tag(ModTags.Items.PIZZA_INGREDIENTS).add(Items.MELON_SLICE);
+    }
+
+    private void collectPizzaCutterItems()
+    {
+        tag(ModTags.Items.PIZZA_CUTTER).add(ModItems.pizza_cutter);
+    }
+
+    private void collectNuggets()
+    {
+        tag(ModTags.Items.NUGGETS).add(Items.IRON_NUGGET);
+        tag(ModTags.Items.NUGGETS).add(Items.GOLD_NUGGET);
     }
 }

@@ -87,6 +87,11 @@ public class ModLangProvider extends LanguageProvider
         {
             entry.addEntry("en_us", "Granite Grinding Stone");
         }));
+
+        add(ModLocaleEntry.create(ModItems.pizza_cutter, (entry) ->
+        {
+            entry.addEntry("en_us", "Pizza Cutter");
+        }));
     }};
 
     private List<ModLocaleEntry<Block>> blockEntries = new ArrayList<ModLocaleEntry<Block>>()

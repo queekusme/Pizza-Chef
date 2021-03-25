@@ -1,6 +1,6 @@
 65653bd49c0d12871bff09c749e746def6082cd2 assets/pizzachef/blockstates/crop_tomato.json
 bc2dadde121acde82c74ba0adde46b6b16bc0ef5 assets/pizzachef/blockstates/granite_pizza_slab.json
-8c1c0b32314929705ba51251a9181145b4852b0e assets/pizzachef/lang/en_us.json
+e9afb609cc5b1ba7d0eeec926a07f05b68f36594 assets/pizzachef/lang/en_us.json
 909c5f366513587f613424844be52e92551c49f3 assets/pizzachef/models/block/crop_tomato_0_0.json
 e545ea232328a3a627547f0882cfc1d5d335865c assets/pizzachef/models/block/crop_tomato_0_1.json
 fc18319e8c3055a45d47c1560732de810b494789 assets/pizzachef/models/block/crop_tomato_0_2.json
@@ -25,6 +25,7 @@ cb4d7ae86f319b12127f1db7c9cbef15df94c702 assets/pizzachef/models/item/flour.json
 4388d3e3162fe416eb43e1ee5ddf94c6422a032e assets/pizzachef/models/item/grated_cheese.json
 db4d2e92b8ff7473724c5cd07412db47b3b26e5b assets/pizzachef/models/item/pizza.json
 f6ba4dbfa55935dcfb8967fa468008ec39798f16 assets/pizzachef/models/item/pizza_base.json
+06dec43d376c5cda66fb8a1b1c6b081aa3362d91 assets/pizzachef/models/item/pizza_cutter.json
 7c93f79826a508a73d1f782f10f2844182a2cb9e assets/pizzachef/models/item/pizza_slice.json
 058ef090eac24b49612f06b9af96bdfeba292701 assets/pizzachef/models/item/salt.json
 a19f9c7e965e31e505991b3edecba97ce51ad46a assets/pizzachef/models/item/tomato.json
@@ -35,6 +36,7 @@ acbb63538935862ea1705875af02f1394c50c11c data/forge/tags/items/items/cheese/chee
 93f29028d1b01ac860bbce5f2f9979ac961c0fe5 data/forge/tags/items/items/crops/tomato.json
 576caf432801667ec99e12c7df754fc72d2adc14 data/forge/tags/items/items/flour/flour.json
 93f29028d1b01ac860bbce5f2f9979ac961c0fe5 data/forge/tags/items/items/fruits/tomato.json
+3d1b62af2fd4d6cc9d29d74c02f0331cbe84bf5c data/forge/tags/items/items/nuggets.json
 9d9e06efa6d7814ae78a35c8b25fb1b70819be45 data/forge/tags/items/items/salt/salt.json
 93f29028d1b01ac860bbce5f2f9979ac961c0fe5 data/forge/tags/items/items/vegetables/tomato.json
 dfcbb38447f69fac47386b6ab3c6ad29c1fe3f1c data/pizzachef/advancements/recipes/pizzachef/block_of_cheese.json
@@ -44,6 +46,7 @@ b0d91b844aa8580dd493bc4bf5cefc85d9ddc4a1 data/pizzachef/advancements/recipes/piz
 456a488bd7dc194e3db803301094d286bea69bc8 data/pizzachef/advancements/recipes/pizzachef/granite_pizza_slab.json
 bb94e8f8dcebc58ba7fc1b63ee0360ee905aafeb data/pizzachef/advancements/recipes/pizzachef/grated_cheese.json
 6bc9267d046b2579f073880b89b09da6e62ace88 data/pizzachef/advancements/recipes/pizzachef/pizza_base.json
+c761c308c247f8e3862bdffbc9714503c365cedc data/pizzachef/advancements/recipes/pizzachef/pizza_cutter.json
 d33fcf40c30721a6052e743b219ed2edff24a4c9 data/pizzachef/advancements/recipes/pizzachef/tomato_puree.json
 8db4bc5bb90a461672d1a350134e09d0a1cbf852 data/pizzachef/advancements/recipes/pizzachef/tomato_seeds.json
 b283ba9023e8267a4a5c0feaaa7288d7c2197984 data/pizzachef/loot_modifiers/grass.json
@@ -57,7 +60,9 @@ c26698b6241aca9b4c63b918cdd88eaec0ba1b68 data/pizzachef/recipes/granite_grinding
 7628fb239bb4c07ade24fafc5ff185326f99e9e4 data/pizzachef/recipes/granite_pizza_slab.json
 dbe22ae6d0e0143342d92cd3ed85d0318834eb6c data/pizzachef/recipes/grated_cheese.json
 386cfcbaf2302ca1eaf0ab240255d773cb3ae2ff data/pizzachef/recipes/pizza_base.json
+9913b09c93b7e457bf9c333121969dcba32e0ae2 data/pizzachef/recipes/pizza_cutter.json
 d5b2a448bfaab09f2dd32f5db01be93bd195bf8d data/pizzachef/recipes/tomato_puree.json
 72c98c94db0c1b86a14df23bfd44763a879e028b data/pizzachef/recipes/tomato_seeds.json
+d0f28c76e4945ba6d090c3a975c753c5d57623f7 data/pizzachef/tags/items/pizza_cutter.json
 9f2e3c0aef00ecff471a28461877043c5110e7af data/pizzachef/tags/items/pizza_toppings.json
 991d01c7fffcc877e2123983a746a494b737e99e data/pizzachef/tags/items/tomato.json

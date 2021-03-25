@@ -20,6 +20,60 @@ public class PizzaInventoryHandler implements IItemHandler
         this.workingStack = currentPizza;
     }
 
+    /**
+     * Removes the side not desired
+     *
+     * e.g. I...II.I == I........ or ....II.I
+     *
+     * @param side
+     * @return current handler
+     */
+    public PizzaInventoryHandler reduceToSide(PizzaSide side)
+    {
+        for(int i = 0; i < this.getSlots(); i++)
+        {
+            if((side == PizzaSide.LEFT && i >= this.getSlots() / 2) || (side == PizzaSide.RIGHT && i < this.getSlots() / 2))
+                this.forgetItem(i);
+        }
+
+        return this;
+    }
+
+    /**
+     * Reduces the item down so that there are no spaces between items
+     * e.g. I...II.I == IIII....
+     *
+     * @return current handler
+     */
+    public PizzaInventoryHandler defrag()
+    {
+        int slot = 0;
+        int firstEmptySlot = -1;
+        while(slot < this.getSlots())
+        {
+            if(this.getStackInSlot(slot) == ItemStack.EMPTY)
+            {
+                if(firstEmptySlot == -1)
+                    firstEmptySlot = slot;
+
+                slot++;
+                continue;
+            }
+
+            if(firstEmptySlot == -1)
+            {
+                slot++;
+                continue;
+            }
+
+            this.insertItem(firstEmptySlot, this.extractItem(slot, 1, false, true), false, true);
+            slot = firstEmptySlot;
+            firstEmptySlot = -1;
+        }
+
+        return this;
+    }
+
     private IPizza asIPizza()
     {
         return ((IPizza)workingStack.getItem());
@@ -47,7 +101,18 @@ public class PizzaInventoryHandler implements IItemHandler
     @Override
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate)
     {
-        if(!this.canInsertInSlot(slot))
+        return this.insertItem(slot, stack, simulate, false);
+    }
+
+    @Override
+    public ItemStack extractItem(int slot, int amount, boolean simulate)
+    {
+        return this.extractItem(slot, amount, simulate, false);
+    }
+
+    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate, boolean force)
+    {
+        if(!force && !this.canInsertInSlot(slot))
             return stack;
 
         if(stack == ItemStack.EMPTY)
@@ -73,18 +138,23 @@ public class PizzaInventoryHandler implements IItemHandler
         return returnStack;
     }
 
-    @Override
-    public ItemStack extractItem(int slot, int amount, boolean simulate)
+    public ItemStack extractItem(int slot, int amount, boolean simulate, boolean force)
     {
-        if(!this.canExtractFromSlot(slot) || amount == 0)
+        if((!force && !this.canExtractFromSlot(slot)) || amount == 0)
             return ItemStack.EMPTY;
 
         CompoundNBT pizzaTag = this.getPizzaCompound();
         CompoundNBT stackAsTag = pizzaTag.getCompound(this.getKeyForSlot(slot));
 
-        pizzaTag.remove(this.getKeyForSlot(slot));
+        if(!simulate)
+            pizzaTag.remove(this.getKeyForSlot(slot));
 
         return ItemStack.of(stackAsTag);
+    }
+
+    public void forgetItem(int slot)
+    {
+        this.getPizzaCompound().remove(this.getKeyForSlot(slot));
     }
 
     private String getKeyForSlot(int slot) {

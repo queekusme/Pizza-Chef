@@ -6,11 +6,15 @@ import javax.annotation.Nullable;
 
 import com.queekus.pizzachef.api.IPizza;
 import com.queekus.pizzachef.api.PizzaInventoryHandler;
+import com.queekus.pizzachef.api.PizzaSide;
+import com.queekus.pizzachef.crafting.NBTCrafting;
+import com.queekus.pizzachef.items.ModItems;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
@@ -48,6 +52,32 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     public TileEntityGranitePizzaSlab()
     {
         super(ModTileEntities.GRANITE_PIZZA_SLAB.get());
+    }
+
+    public void dropPizzaSlicesAsItems()
+    {
+        if(this.getPizza().getItem() != ModItems.pizza)
+            return;
+
+        InventoryHelper.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), this.getSlice(PizzaSide.LEFT, 4));
+        InventoryHelper.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), this.getSlice(PizzaSide.RIGHT, 4));
+
+        ItemStackHelper.takeItem(this.pizzStack, PIZZA_SLOT); // Ignore output, we just wanna remove it
+    }
+
+    private ItemStack getSlice(PizzaSide side, int count)
+    {
+        if(this.level.isClientSide || this.getPizza() == ItemStack.EMPTY)
+            return ItemStack.EMPTY;
+
+        ItemStack stack = new ItemStack(ModItems.pizza_slice, count);
+
+        ItemStack pizzaCopy = this.getPizza().copy(); // Reduce as pizza to retain information about whole pizza item
+        ((PizzaInventoryHandler)IPizza.getHandlerForPizza(pizzaCopy)).reduceToSide(side).defrag();
+
+        NBTCrafting.transferNBT(stack, pizzaCopy);
+
+        return stack;
     }
 
     public ItemStack getPizza()

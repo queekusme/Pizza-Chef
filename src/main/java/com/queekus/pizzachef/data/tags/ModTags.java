@@ -17,6 +17,7 @@ public class ModTags
     public static final class Items
     {
         public static final ITag.INamedTag<Item> PIZZA_INGREDIENTS = mod("pizza_toppings"); // Ingredients which can be put on a pizza base
+        public static final ITag.INamedTag<Item> PIZZA_CUTTER = mod("pizza_cutter"); // Ingredients which can be put on a pizza base
 
         public static final ITag.INamedTag<Item> TOMATO = mod("tomato");
 
@@ -27,6 +28,9 @@ public class ModTags
         public static final ITag.INamedTag<Item> CHEESE_FORGE = forge("items/cheese/cheese");
         public static final ITag.INamedTag<Item> FLOUR_FORGE = forge("items/flour/flour");
         public static final ITag.INamedTag<Item> SALT_FORGE = forge("items/salt/salt");
+
+
+        public static final ITag.INamedTag<Item> NUGGETS = forge("items/nuggets");
 
         private static ITag.INamedTag<Item> forge(String path)
         {

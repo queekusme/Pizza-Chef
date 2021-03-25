@@ -74,6 +74,15 @@ public class ModRecipeProvider extends RecipeProvider
             .requires(ModItems.granite_grinding_stone)
             .unlockedBy("has_item", has(ModItems.flour))
             .save(consumer); // TODO: Recipe Book doesn't ignore damage, recipe works manually however
+
+        ShapedRecipeBuilder
+            .shaped(ModItems.pizza_cutter)
+            .define('I', ModTags.Items.NUGGETS)
+            .define('S', Items.STICK)
+            .pattern("I ")
+            .pattern(" S")
+            .unlockedBy("has_item", has(ModTags.Items.NUGGETS))
+            .save(consumer);
     }
 
     private void collectTomatoRecipes(Consumer<IFinishedRecipe> consumer)

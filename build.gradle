@@ -194,18 +194,33 @@ publishing {
     }
 }
 
-def curseforge_changelog = ""
+def execCommand(String[] args) {
+    def out = new ByteArrayOutputStream()
+    exec {
+        commandLine args
 
-if(System.env.GITHUB_ACTIONS_NIGHTLY)
-    curseforge_changelog = "git log --after=\"24 hours\" --pretty=format:\"- %s\"".execute().text.trim()
-else
-    curseforge_changelog = "git log \$5(git describe --tags --abbrev=0)..HEAD --pretty=format:\"- %s\"".execute().text.trim()
+        standardOutput = out
+    }
+    return out.toString().trim()
+}
 
-curseforge {
-    apiKey = System.env.CURSEFORGE_API_UPLOAD
-    project {
-        id = "460267"
-        changelog = "${curseforge_changelog}"
-        releaseType = "${curseforge_release_type}"
+if(System.env.CURSEFORGE_API_UPLOAD != null) {
+    def getChangelog = {
+        if(System.env.GITHUB_ACTIONS_NIGHTLY)
+            return execCommand('git', 'log', '--after="72 hours"', '--pretty=format:- %s')
+
+        return execCommand('git', 'log', execCommand('git', 'describe', '--tags', '--abbrev=0') + '..HEAD', '--pretty=format:- %s')
+    }
+
+    curseforge {
+        apiKey = System.env.CURSEFORGE_API_UPLOAD
+        project {
+            id = "460267"
+            changelog = getChangelog
+            releaseType = "${curseforge_release_type}"
+            mainArtifact(jar) {
+                displayName = "Pizza Chef $project.version"
+            }
+        }
     }
 }

@@ -9,12 +9,9 @@ import com.queekus.pizzachef.data.tags.ModTags;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -94,22 +91,5 @@ public class PizzaItem extends Item implements IPizza
             .nutrition(0)
             .saturationMod(0)
             .build();
-    }
-
-    public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand)
-    {
-        if (this.isEdible())
-        {
-            ItemStack itemstack = player.getItemInHand(hand);
-            if (player.canEat(this.getFoodProperties().canAlwaysEat()))
-            {
-                player.startUsingItem(hand);
-                return ActionResult.consume(itemstack);
-            }
-
-            return ActionResult.fail(itemstack);
-        }
-
-        return ActionResult.pass(player.getItemInHand(hand));
     }
 }

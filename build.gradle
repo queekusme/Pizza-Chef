@@ -207,7 +207,7 @@ def execCommand(String[] args) {
 if(System.env.CURSEFORGE_API_UPLOAD != null) {
     def getChangelog = {
         if(System.env.GITHUB_ACTIONS_NIGHTLY)
-            return execCommand('git', 'log', '--after="72 hours"', '--pretty=format:- %s')
+            return execCommand('git', 'log', '--after="24 hours"', '--pretty=format:- %s')
 
         return execCommand('git', 'log', execCommand('git', 'describe', '--tags', '--abbrev=0') + '..HEAD', '--pretty=format:- %s')
     }

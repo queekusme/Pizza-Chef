@@ -9,8 +9,12 @@ import com.queekus.pizzachef.data.tags.ModTags;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -71,5 +75,41 @@ public class PizzaItem extends Item implements IPizza
             if(slotStack != ItemStack.EMPTY)
                 tooltip.add(new StringTextComponent(TextFormatting.AQUA + ingredientIndent + "- " + I18n.get(slotStack.getItem().getDescriptionId())));
         }
+    }
+
+    @Override
+    public boolean isEdible()
+    {
+        return this.asItem() == ModItems.pizza_slice;
+    }
+
+    @Override
+    public Food getFoodProperties()
+    {
+        /**
+         * NOTE: Currently Impossible to generate desired values from Items within Pizza's NBT
+         * This is due to https://github.com/MinecraftForge/MinecraftForge/issues/7701
+         */
+        return new Food.Builder()
+            .nutrition(0)
+            .saturationMod(0)
+            .build();
+    }
+
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand)
+    {
+        if (this.isEdible())
+        {
+            ItemStack itemstack = player.getItemInHand(hand);
+            if (player.canEat(this.getFoodProperties().canAlwaysEat()))
+            {
+                player.startUsingItem(hand);
+                return ActionResult.consume(itemstack);
+            }
+
+            return ActionResult.fail(itemstack);
+        }
+
+        return ActionResult.pass(player.getItemInHand(hand));
     }
 }

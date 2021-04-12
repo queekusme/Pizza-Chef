@@ -4,8 +4,9 @@
 name: Nightly Builds
 
 on:
-  schedule:
-    - cron: "0 2 * * *"
+  workflow_dispatch:
+  # schedule:
+    # - cron: "0 2 * * *"
 
 env:
   CURSEFORGE_API_UPLOAD: ${{ secrets.CURSEFORGE_API_UPLOAD }}

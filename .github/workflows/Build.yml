@@ -4,6 +4,7 @@
 name: Build Pizza Chef Mod
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - '*'

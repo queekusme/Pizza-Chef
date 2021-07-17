@@ -207,9 +207,9 @@ def execCommand(String[] args) {
 if(System.env.CURSEFORGE_API_UPLOAD != null) {
     def getChangelog = {
         if(System.env.GITHUB_ACTIONS_NIGHTLY)
-            return "<ul>" + execCommand('cmd', 'git', 'log', '--after="24 hours"', '--pretty=format:<li>%s</li>') + "</ul>"
+            return "<ul>" + execCommand('bash', 'git', 'log', '--after="24 hours"', '--pretty=format:<li>%s</li>') + "</ul>"
 
-        return "<ul>" + execCommand('cmd', 'git', 'log', execCommand('cmd', 'git', 'describe', '--tags', '--abbrev=0') + '..HEAD', '--pretty=format:<li>%s</li>') + "</ul>"
+        return "<ul>" + execCommand('bash', 'git', 'log', execCommand('bash', 'git', 'describe', '--tags', '--abbrev=0') + '..HEAD', '--pretty=format:<li>%s</li>') + "</ul>"
     }
 
     curseforge {

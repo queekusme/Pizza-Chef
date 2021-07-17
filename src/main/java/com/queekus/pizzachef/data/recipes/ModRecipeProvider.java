@@ -34,8 +34,9 @@ public class ModRecipeProvider extends RecipeProvider
         collectTomatoRecipes(consumer);
         collectMiscRecipes(consumer);
 
-        // cookRecipes(consumer, ModCrafting.SMOKER_TRANSFER_NBT.get(), "smoking", 100);  // Currently non-operational due to AbstractFurnaceTileEntity::burn using IRecipe::getResultItem rather than IRecipe::assemble
-        cookRecipes(consumer, ModCrafting.CAMPFIRE_COOKING_TRANSFER_NBT.get(), "campfire_cooking", 600);
+        cookRecipes(consumer, ModCrafting.SMELTING_TRANSFER_NBT.get(), "furnace", 300, 0.05F);
+        cookRecipes(consumer, ModCrafting.SMOKER_TRANSFER_NBT.get(), "smoking", 100, 0.35F);
+        cookRecipes(consumer, ModCrafting.CAMPFIRE_COOKING_TRANSFER_NBT.get(), "campfire_cooking", 600, 0.35F);
     }
 
     private void collectGraniteRecipes(Consumer<IFinishedRecipe> consumer)
@@ -122,9 +123,9 @@ public class ModRecipeProvider extends RecipeProvider
             .save(consumer); // TODO: Recipe Book doesn't ignore damage, recipe works manually however
     }
 
-    private void cookRecipes(Consumer<IFinishedRecipe> consumer, CookingRecipeSerializer<?> serializer, String serializerId, int cookTime)
+    private void cookRecipes(Consumer<IFinishedRecipe> consumer, CookingRecipeSerializer<?> serializer, String serializerId, int cookTime, float experience)
     {
-        CookingRecipeBuilder.cooking(Ingredient.of(ModItems.pizza_base), ModItems.pizza, 0.35F, cookTime, serializer)
+        CookingRecipeBuilder.cooking(Ingredient.of(ModItems.pizza_base), ModItems.pizza, experience, cookTime, serializer)
             .unlockedBy("has_pizza_base", has(ModItems.pizza_base))
             .save(consumer, new ResourceLocation(PizzaChef.MOD_ID, "cooked_pizza_from_" + serializerId));
     }

@@ -11,7 +11,7 @@ node("docker")
 
     withCredentials([string(credentialsId: 'CURSEFORGE_API_UPLOAD', variable: 'TOKEN')])
     {
-        withEnv(['CURSEFORGE_API_UPLOAD=$TOKEN'])
+        withEnv(["CURSEFORGE_API_UPLOAD=${TOKEN}"])
         {
             stage("Build Mod")
             {

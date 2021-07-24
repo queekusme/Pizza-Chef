@@ -11,14 +11,17 @@ node("docker")
 
     withCredentials([string(credentialsId: 'CURSEFORGE_API_UPLOAD', variable: 'TOKEN')])
     {
-        withEnv(['CURSEFORGE_API_UPLOAD=$TOKEN', stage("Build Mod")
+        withEnv(['CURSEFORGE_API_UPLOAD=$TOKEN'])
         {
-            docker.image('gradle:jdk16-hotspot').inside()
+            stage("Build Mod")
             {
-                sh '''
-                    chmod +x gradlew
-                    ./gradlew curseforge
-                '''
+                docker.image('gradle:jdk16-hotspot').inside()
+                {
+                    sh '''
+                        chmod +x gradlew
+                        ./gradlew curseforge
+                    '''
+                }
             }
         }
     }

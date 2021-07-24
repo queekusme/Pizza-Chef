@@ -51,7 +51,6 @@ public class ModLootTableProvider extends LootTableProvider
         map.forEach((id, lootTable) -> LootTables.validate(validationContext, id, lootTable));
     }
 
-    @SuppressWarnings("serial")
     public static class ModBlockLootTables extends BlockLoot
     {
         @Override
@@ -69,7 +68,15 @@ public class ModLootTableProvider extends LootTableProvider
                             .hasProperty(CropBlockMultiHeight.HEIGHT_2, 1))
                 )
             );
-            add(ModBlocks.granite_pizza_slab, BlockLoot::createNameableBlockEntityTable);
+            add(ModBlocks.granite_pizza_slab, ModBlockLootTables::createNameableBlockEntityTable);
+        }
+
+        /**
+         * Shim: Cannot call BlockLoot::createNameableBlockEntityTable statically in addTables for granite_pizza_slab
+         *       directly for some bizzare reason... java has a hissy fit
+         */
+        protected static LootTable.Builder createNameableBlockEntityTable(Block block) {
+           return BlockLoot.createNameableBlockEntityTable(block);
         }
 
         protected static LootTable.Builder createProduceCropDrops(Item crop, Item seed, LootItemCondition.Builder cropCondition)

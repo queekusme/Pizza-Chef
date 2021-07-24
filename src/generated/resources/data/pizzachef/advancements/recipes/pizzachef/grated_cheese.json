@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "pizzachef:block_of_cheese"
+            "items": [
+              "pizzachef:block_of_cheese"
+            ]
           }
         ]
       }

@@ -27,7 +27,8 @@ public class ModRecipeProvider extends RecipeProvider
     }
 
     // Can be used for both Shapeless AND Shaped Recipes
-    protected void buildShapelessRecipes(Consumer<FinishedRecipe> consumer)
+    @Override
+    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer)
     {
         collectGraniteRecipes(consumer);
         collectCheeseRecipes(consumer);

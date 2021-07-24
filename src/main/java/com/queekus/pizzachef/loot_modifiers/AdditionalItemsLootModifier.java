@@ -15,7 +15,7 @@ import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootSerializers;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;

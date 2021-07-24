@@ -9,7 +9,7 @@ import com.queekus.pizzachef.data.tags.ModTags;
 
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.level.Level;
@@ -50,7 +50,7 @@ public class PizzaItem extends Item implements IPizza
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, ITooltipFlag flagIn)
     {
         IItemHandler handler = IPizza.getHandlerForPizza(stack);
         Item pizzaItem = this.getItem();

@@ -14,21 +14,20 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.world.Containers;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraft.core.BlockPos;
 
 public class TileEntityGranitePizzaSlab extends BaseContainerBlockEntity implements WorldlyContainer
 {
@@ -51,9 +50,9 @@ public class TileEntityGranitePizzaSlab extends BaseContainerBlockEntity impleme
 
     protected NonNullList<ItemStack> pizzStack = NonNullList.withSize(1, ItemStack.EMPTY);
 
-    public TileEntityGranitePizzaSlab()
+    public TileEntityGranitePizzaSlab(BlockPos blockPos, BlockState blockState)
     {
-        super(ModTileEntities.GRANITE_PIZZA_SLAB.get());
+        super(ModTileEntities.GRANITE_PIZZA_SLAB.get(), blockPos, blockState);
     }
 
     public void dropPizzaSlicesAsItems()
@@ -116,9 +115,9 @@ public class TileEntityGranitePizzaSlab extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    public void load(BlockState state, CompoundTag nbt)
+    public void load(CompoundTag nbt)
     {
-        super.load(state, nbt);
+        super.load(nbt);
 
         this.pizzStack.clear(); // remove current and replace with new
 
@@ -318,9 +317,9 @@ public class TileEntityGranitePizzaSlab extends BaseContainerBlockEntity impleme
         return this.hasPizza() && this.getPizzaHandler().extractItem(index - 1, 1, true).getCount() == ItemStack.EMPTY.getCount();  // -1 for Pizza Slot
     }
 
-    protected ITextComponent getDefaultName()
+    protected Component getDefaultName()
     {
-       return new TranslationTextComponent("container.granite_pizza_slab");
+       return new TranslatableComponent("container.granite_pizza_slab");
     }
 
     @Override
@@ -338,16 +337,16 @@ public class TileEntityGranitePizzaSlab extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket()
+    public ClientboundBlockEntityDataPacket getUpdatePacket()
     {
-        return new SUpdateTileEntityPacket(this.worldPosition, 42, this.save(new CompoundTag()));
+        return new ClientboundBlockEntityDataPacket(this.worldPosition, 42, this.save(new CompoundTag()));
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt)
     {
         super.onDataPacket(net, pkt);
-        this.load(this.getBlockState(), pkt.getTag());
+        this.load(pkt.getTag());
     }
 
     @Override
@@ -357,9 +356,9 @@ public class TileEntityGranitePizzaSlab extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    public void handleUpdateTag(BlockState blockState, CompoundTag parentNBTTagCompound)
+    public void handleUpdateTag(CompoundTag parentNBTTagCompound)
     {
-        super.handleUpdateTag(blockState, parentNBTTagCompound);
-        this.load(blockState, parentNBTTagCompound);
+        super.handleUpdateTag(parentNBTTagCompound);
+        this.load(parentNBTTagCompound);
     }
 }

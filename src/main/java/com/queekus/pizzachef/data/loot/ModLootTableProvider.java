@@ -31,7 +31,7 @@ import net.minecraft.loot.ValidationTracker;
 import net.minecraft.loot.conditions.BlockStateProperty;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.loot.functions.ApplyBonus;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class ModLootTableProvider extends LootTableProvider
 {

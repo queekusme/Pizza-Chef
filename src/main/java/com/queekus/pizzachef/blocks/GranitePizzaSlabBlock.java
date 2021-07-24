@@ -5,6 +5,7 @@ import com.queekus.pizzachef.tileentities.ModTileEntities;
 import com.queekus.pizzachef.tileentities.TileEntityGranitePizzaSlab;
 
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.Container;
@@ -14,12 +15,12 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 
-public class GranitePizzaSlabBlock extends Block
+public class GranitePizzaSlabBlock extends BaseEntityBlock
 {
     private static final VoxelShape BOUNDING = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
 
@@ -52,21 +53,23 @@ public class GranitePizzaSlabBlock extends Block
         return super.use(state, world, pos, player, hand, hit);
     }
 
-    public VoxelShape getShape(BlockState p_220053_1_, IBlockReader p_220053_2_, BlockPos p_220053_3_, ISelectionContext p_220053_4_)
+    public VoxelShape getShape(BlockState p_220053_1_, BlockGetter p_220053_2_, BlockPos p_220053_3_, CollisionContext p_220053_4_)
     {
        return BOUNDING;
     }
 
-    @Override
-    public boolean hasTileEntity(BlockState state)
-    {
-        return true;
-    }
+    // Mentions on Discord that this may be returning...
+    //
+    // @Override
+    // public boolean hasTileEntity(BlockState state)
+    // {
+    //     return true;
+    // }
 
     @Override
-    public BlockEntity createTileEntity(BlockState state, IBlockReader world)
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState)
     {
-        return ModTileEntities.GRANITE_PIZZA_SLAB.get().create();
+        return ModTileEntities.GRANITE_PIZZA_SLAB.get().create(blockPos, blockState);
     }
 
     @Override

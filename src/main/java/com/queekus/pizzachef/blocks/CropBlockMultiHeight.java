@@ -7,13 +7,13 @@ import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 
 public class CropBlockMultiHeight extends CropBlock
 {
@@ -60,13 +60,13 @@ public class CropBlockMultiHeight extends CropBlock
     }
 
     @Override
-    public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos)
+    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos)
     {
         return worldIn.getBlockState(pos.below()).getBlock() == this || super.canSurvive(state, worldIn, pos);
     }
 
     @Override
-    public boolean isValidBonemealTarget(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient)
+    public boolean isValidBonemealTarget(BlockGetter worldIn, BlockPos pos, BlockState state, boolean isClient)
     {
         if(!this.hasFurtherGrowthAvailable(state, worldIn, pos))
             return false;
@@ -116,7 +116,7 @@ public class CropBlockMultiHeight extends CropBlock
         worldIn.setBlock(pos, this.getStateForAgeAndHeight(state, localBy, state.getValue(this.heightProperty)), 2);
     }
 
-    private boolean hasFurtherGrowthAvailable(BlockState state, IBlockReader worldIn, BlockPos pos)
+    private boolean hasFurtherGrowthAvailable(BlockState state, BlockGetter worldIn, BlockPos pos)
     {
         boolean canGrowInCurrentPosition = this.getAge(state) < this.getMaxAge();
         if(pos.getY() + this.getMaxPlantHeight() >= worldIn.getMaxBuildHeight())
@@ -143,7 +143,7 @@ public class CropBlockMultiHeight extends CropBlock
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand)
+    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand)
     {
         // === SUPER FOR RANDOM_TICK ===
         if (!worldIn.isAreaLoaded(pos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
@@ -181,7 +181,7 @@ public class CropBlockMultiHeight extends CropBlock
         }
 
         @Override
-        protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder)
+        protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
         {
             super.createBlockStateDefinition(builder);
             builder.add(HEIGHT_2);
@@ -196,7 +196,7 @@ public class CropBlockMultiHeight extends CropBlock
         }
 
         @Override
-        protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder)
+        protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
         {
             super.createBlockStateDefinition(builder);
             builder.add(HEIGHT_3);

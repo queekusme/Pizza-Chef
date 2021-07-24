@@ -6,17 +6,21 @@ node("docker")
 
     stage("Generate Changelog")
     {
-        writeChangelog(currentBuild, 'build/changelog.txt')
-    }
-
-    withCredentials([string(credentialsId: 'CURSEFORGE_API_UPLOAD', variable: 'TOKEN')])
-    {
         withEnv([
-            "CURSEFORGE_API_UPLOAD=${TOKEN}",
             "MYVERSION=${sh(returnStdout: true, script: './gradlew properties -q | grep "^version:" | awk \"{print $2}\"').trim()}"
         ])
         {
-            stage("Build Mod")
+            writeChangelog(currentBuild, 'build/changelog.txt')
+        }
+    }
+
+    stage("Build Mod")
+    {
+        withCredentials([string(credentialsId: 'CURSEFORGE_API_UPLOAD', variable: 'TOKEN')])
+        {
+            withEnv([
+                "CURSEFORGE_API_UPLOAD=${TOKEN}"
+            ])
             {
                 docker.image('gradle:jdk16-hotspot').inside()
                 {

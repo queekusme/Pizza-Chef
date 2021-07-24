@@ -8,14 +8,18 @@ node("docker") {
         writeChangelog(currentBuild, 'build/changelog.txt')
     }
 
-    stage("Build Mod")
-    {
-        docker.image('gradle:jdk16-hotspot').inside()
-        {
-            sh '''
-                chmod +x gradlew
-                ./gradlew build
-            '''
+    withCredentials([string(credentialsId: 'CURSEFORGE_API_UPLOAD', variable: 'TOKEN')]) {
+        withEnv(['CURSEFORGE_API_UPLOAD=$TOKEN',
+            stage("Build Mod")
+            {
+                docker.image('gradle:jdk16-hotspot').inside()
+                {
+                    sh '''
+                        chmod +x gradlew
+                        ./gradlew curseforge
+                    '''
+                }
+            }
         }
     }
 }

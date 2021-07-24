@@ -208,30 +208,13 @@ publishing {
     }
 }
 
-def execCommand(String[] args) {
-    def out = new ByteArrayOutputStream()
-    exec {
-        commandLine args
-
-        standardOutput = out
-    }
-    return out.toString().trim()
-}
-
 if(System.env.CURSEFORGE_API_UPLOAD != null) {
-    // def getChangelog = {
-    //     if(System.env.GITHUB_ACTIONS_NIGHTLY)
-    //         return "<ul>" + execCommand('bash', 'git', 'log', '--after="24 hours"', '--pretty=format:<li>%s</li>') + "</ul>"
-
-    //     return "<ul>" + execCommand('bash', 'git', 'log', execCommand('bash', 'git', 'describe', '--tags', '--abbrev=0') + '..HEAD', '--pretty=format:<li>%s</li>') + "</ul>"
-    // }
-
     curseforge {
         apiKey = System.env.CURSEFORGE_API_UPLOAD
         project {
             id = "460267"
-            // changelogType="html"
-            // changelog = getChangelog
+            changelogType="text"
+            changelog = file('build/changelog.txt')
             releaseType = "${curseforge_release_type}"
             mainArtifact(jar) {
                 displayName = "Pizza Chef $project.version"

@@ -1,5 +1,12 @@
+@Library('forge-shared-library')_
+
 node("docker") {
     checkout scm
+
+    stage("Generate Changelog")
+    {
+        writeChangelog(currentBuild, 'build/changelog.txt')
+    }
 
     stage("Build Mod")
     {

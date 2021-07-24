@@ -18,7 +18,7 @@ apply plugin: "net.minecraftforge.gradle"
 apply plugin: "eclipse"
 apply plugin: "maven-publish"
 
-version = "${minecraft_version}-${mod_version}." + (System.env.BUILD_NUMBER ?: "local")
+version = "${minecraft_version}-${mod_version}"
 group = "com.queekus.pizzachef" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "pizzachef"
 

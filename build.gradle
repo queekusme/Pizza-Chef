@@ -215,7 +215,8 @@ if(System.env.CURSEFORGE_API_UPLOAD != null) {
             id = "460267"
             changelogType="text"
             changelog = file('build/changelog.txt')
-            releaseType = "${curseforge_release_type}"
+            releaseType = curseforge_release_type
+            addGameVersion minecraft_version
             mainArtifact(jar) {
                 displayName = "Pizza Chef $project.version"
             }

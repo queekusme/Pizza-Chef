@@ -20,15 +20,17 @@ pipeline {
         }
         stage("Build Mod")
         {
-            withCredentials([string(credentialsId: 'CURSEFORGE_API_UPLOAD', variable: 'TOKEN')])
-            {
-                withEnv([
-                    "CURSEFORGE_API_UPLOAD=${TOKEN}"
-                ])
+            steps {
+                withCredentials([string(credentialsId: 'CURSEFORGE_API_UPLOAD', variable: 'TOKEN')])
                 {
-                    docker.image('gradle:jdk16-hotspot').inside()
+                    withEnv([
+                        "CURSEFORGE_API_UPLOAD=${TOKEN}"
+                    ])
                     {
-                        sh './gradlew curseforge'
+                        docker.image('gradle:jdk16-hotspot').inside()
+                        {
+                            sh './gradlew curseforge'
+                        }
                     }
                 }
             }

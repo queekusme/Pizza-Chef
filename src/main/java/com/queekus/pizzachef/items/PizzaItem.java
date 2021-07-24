@@ -85,10 +85,15 @@ public class PizzaItem extends Item implements IPizza
         /**
          * NOTE: Currently Impossible to generate desired values from Items within Pizza's NBT
          * This is due to https://github.com/MinecraftForge/MinecraftForge/issues/7701
+         *
+         * Ideal nutrition = ∑(nutrition_of_toppings) / 8
+         * Ideal saturation = ∑(saturation_of_toppings) / 8
+         *
+         * Temporary Values added for now...
          */
         return new FoodProperties.Builder()
-            .nutrition(0)
-            .saturationMod(0)
+            .nutrition(8)
+            .saturationMod(5)
             .build();
     }
 }

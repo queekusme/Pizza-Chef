@@ -3,26 +3,26 @@ package com.queekus.pizzachef.blocks;
 import java.util.Collections;
 import java.util.Random;
 
-import net.minecraft.block.AirBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CropsBlock;
+import net.minecraft.world.level.block.AirBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.server.ServerWorld;
 
-public class CropsBlockMultiHeight extends CropsBlock
+public class CropBlockMultiHeight extends CropBlock
 {
     public static final IntegerProperty HEIGHT_2 = IntegerProperty.create("height", 0, 1); // 0, 1 = 2 high
     public static final IntegerProperty HEIGHT_3 = IntegerProperty.create("height", 0, 2); // 0, 1, 2 = 3 high
 
     private IntegerProperty heightProperty;
 
-    private CropsBlockMultiHeight(Properties props, IntegerProperty heightProperty)
+    private CropBlockMultiHeight(Properties props, IntegerProperty heightProperty)
     {
         super(props);
         this.heightProperty = heightProperty;
@@ -34,7 +34,7 @@ public class CropsBlockMultiHeight extends CropsBlock
 
     @Override
     @SuppressWarnings("deprecation")
-    public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
+    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving)
     {
         super.onRemove(state, worldIn, pos, newState, isMoving);
 
@@ -73,7 +73,7 @@ public class CropsBlockMultiHeight extends CropsBlock
 
         if(this.isMaxAge(state))
         {
-            if(worldIn.getBlockState(pos.above()).getBlock() instanceof CropsBlockMultiHeight)
+            if(worldIn.getBlockState(pos.above()).getBlock() instanceof CropBlockMultiHeight)
                 return this.isValidBonemealTarget(worldIn, pos.above(), worldIn.getBlockState(pos.above()), isClient);
             else if(worldIn.getBlockState(pos.above()).getBlock() instanceof AirBlock)
                 return true;
@@ -83,12 +83,12 @@ public class CropsBlockMultiHeight extends CropsBlock
     }
 
     @Override
-    public void growCrops(World worldIn, BlockPos pos, BlockState state)
+    public void growCrops(Level worldIn, BlockPos pos, BlockState state)
     {
         this.growAt(worldIn, state, pos, this.getBonemealAgeIncrease(worldIn));
     }
 
-    public void growAt(World worldIn, BlockState state, BlockPos pos, int by)
+    public void growAt(Level worldIn, BlockState state, BlockPos pos, int by)
     {
         int localCurrent = this.getAge(state);
         int maxAge = this.getMaxAge();
@@ -129,7 +129,7 @@ public class CropsBlockMultiHeight extends CropsBlock
         if(blockStateAbove.getBlock() instanceof AirBlock)
             return true;
 
-        return blockStateAbove.getBlock() instanceof CropsBlockMultiHeight && this.getAge(blockStateAbove) < this.getMaxAge();
+        return blockStateAbove.getBlock() instanceof CropBlockMultiHeight && this.getAge(blockStateAbove) < this.getMaxAge();
     }
 
     public BlockState getStateForAgeAndHeight(BlockState state, int age, int height)
@@ -173,7 +173,7 @@ public class CropsBlockMultiHeight extends CropsBlock
         }
     }
 
-    public static class TwoTall extends CropsBlockMultiHeight
+    public static class TwoTall extends CropBlockMultiHeight
     {
         public TwoTall(Properties props)
         {
@@ -188,7 +188,7 @@ public class CropsBlockMultiHeight extends CropsBlock
         }
     }
 
-    public static class ThreeTall extends CropsBlockMultiHeight
+    public static class ThreeTall extends CropBlockMultiHeight
     {
         public ThreeTall(Properties props)
         {

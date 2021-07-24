@@ -2,15 +2,15 @@ package com.queekus.pizzachef.blocks;
 
 import com.queekus.pizzachef.items.ModItems;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
-public class CropTomato extends CropsBlockMultiHeight.TwoTall
+public class CropTomato extends CropBlockMultiHeight.TwoTall
 {
     private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{
         Block.box(4.0D, 0.0D, 4.0D, 12.0D, 2.0D, 12.0D),
@@ -34,7 +34,7 @@ public class CropTomato extends CropsBlockMultiHeight.TwoTall
     }
 
     @Override
-    protected IItemProvider getBaseSeedId()
+    protected ItemLike getBaseSeedId()
     {
         return ModItems.tomato_seeds;
     }

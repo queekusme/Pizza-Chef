@@ -9,8 +9,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootSerializers;
 import net.minecraft.loot.conditions.ILootCondition;

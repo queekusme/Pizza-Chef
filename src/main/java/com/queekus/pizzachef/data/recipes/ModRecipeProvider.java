@@ -14,9 +14,9 @@ import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.CookingRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingRecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 
 public class ModRecipeProvider extends RecipeProvider

@@ -1,10 +1,10 @@
 package com.queekus.pizzachef.crafting;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.BlastingRecipe;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.BlastingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class TransferNBTBlasterRecipe extends BlastingRecipe
 {

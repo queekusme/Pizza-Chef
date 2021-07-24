@@ -10,25 +10,27 @@ import com.queekus.pizzachef.api.PizzaSide;
 import com.queekus.pizzachef.crafting.NBTCrafting;
 import com.queekus.pizzachef.items.ModItems;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.world.Containers;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.LockableTileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class TileEntityGranitePizzaSlab extends LockableTileEntity implements ISidedInventory
+public class TileEntityGranitePizzaSlab extends BaseContainerBlockEntity implements WorldlyContainer
 {
     private static final int PIZZA_SLOT = 0;
 
@@ -59,10 +61,10 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
         if(this.getPizza().getItem() != ModItems.pizza)
             return;
 
-        InventoryHelper.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), this.getSlice(PizzaSide.LEFT, 4));
-        InventoryHelper.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), this.getSlice(PizzaSide.RIGHT, 4));
+        Containers.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), this.getSlice(PizzaSide.LEFT, 4));
+        Containers.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), this.getSlice(PizzaSide.RIGHT, 4));
 
-        ItemStackHelper.takeItem(this.pizzStack, PIZZA_SLOT); // Ignore output, we just wanna remove it
+        ContainerHelper.takeItem(this.pizzStack, PIZZA_SLOT); // Ignore output, we just wanna remove it
     }
 
     private ItemStack getSlice(PizzaSide side, int count)
@@ -114,21 +116,21 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     }
 
     @Override
-    public void load(BlockState state, CompoundNBT nbt)
+    public void load(BlockState state, CompoundTag nbt)
     {
         super.load(state, nbt);
 
         this.pizzStack.clear(); // remove current and replace with new
 
-        ItemStackHelper.loadAllItems(nbt, this.pizzStack);
+        ContainerHelper.loadAllItems(nbt, this.pizzStack);
     }
 
     @Override
-    public CompoundNBT save(CompoundNBT compound)
+    public CompoundTag save(CompoundTag compound)
     {
         super.save(compound);
 
-        return ItemStackHelper.saveAllItems(compound, this.pizzStack);
+        return ContainerHelper.saveAllItems(compound, this.pizzStack);
     }
 
     net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers =
@@ -200,7 +202,7 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
         {
             ItemStack itemStack;
             if(index == PIZZA_SLOT)
-                itemStack = ItemStackHelper.takeItem(this.pizzStack, index); // Ignore count as we only handle 1 per slot
+                itemStack = ContainerHelper.takeItem(this.pizzStack, index); // Ignore count as we only handle 1 per slot
             else
                 itemStack = this.getPizzaHandler().extractItem(index - 1, count, false); // -1 for Pizza Slot
 
@@ -219,7 +221,7 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
         if (this.hasPizza())
         {
             if(index == PIZZA_SLOT)
-                return ItemStackHelper.takeItem(this.pizzStack, index);
+                return ContainerHelper.takeItem(this.pizzStack, index);
             else
                 this.getPizzaHandler().extractItem(index - 1, 1, false); // -1 for Pizza Slot
         }
@@ -246,7 +248,7 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     }
 
     @Override
-    public boolean stillValid(PlayerEntity player)
+    public boolean stillValid(Player player)
     {
        if (this.level.getBlockEntity(this.worldPosition) != this)
             return false;
@@ -322,7 +324,7 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     }
 
     @Override
-    protected Container createMenu(int p_213906_1_, PlayerInventory p_213906_2_)
+    protected AbstractContainerMenu createMenu(int p_58627_, Inventory p_58628_)
     {
         return null;
     }
@@ -338,7 +340,7 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     @Override
     public SUpdateTileEntityPacket getUpdatePacket()
     {
-        return new SUpdateTileEntityPacket(this.worldPosition, 42, this.save(new CompoundNBT()));
+        return new SUpdateTileEntityPacket(this.worldPosition, 42, this.save(new CompoundTag()));
     }
 
     @Override
@@ -349,13 +351,13 @@ public class TileEntityGranitePizzaSlab extends LockableTileEntity implements IS
     }
 
     @Override
-    public CompoundNBT getUpdateTag()
+    public CompoundTag getUpdateTag()
     {
         return this.save(super.getUpdateTag());
     }
 
     @Override
-    public void handleUpdateTag(BlockState blockState, CompoundNBT parentNBTTagCompound)
+    public void handleUpdateTag(BlockState blockState, CompoundTag parentNBTTagCompound)
     {
         super.handleUpdateTag(blockState, parentNBTTagCompound);
         this.load(blockState, parentNBTTagCompound);

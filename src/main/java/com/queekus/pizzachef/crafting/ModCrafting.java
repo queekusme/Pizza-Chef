@@ -2,10 +2,10 @@ package com.queekus.pizzachef.crafting;
 
 import com.queekus.pizzachef.PizzaChef;
 
-import net.minecraft.item.crafting.CookingRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.crafting.CookingRecipeSerializer;
+import net.minecraft.world.item.crafting.IRecipeSerializer;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 

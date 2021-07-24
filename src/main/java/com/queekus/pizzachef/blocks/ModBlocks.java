@@ -4,15 +4,15 @@ import com.google.common.base.Function;
 import com.queekus.pizzachef.PizzaChef;
 import com.queekus.pizzachef.items.ModItems;
 
-import net.minecraft.block.AbstractBlock.Properties;
-import net.minecraft.block.Block;
-import net.minecraft.block.CropsBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.item.BlockItem;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.item.BlockItem;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -23,7 +23,7 @@ public class ModBlocks
 {
     private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, PizzaChef.MOD_ID);
 
-    public static final CropsBlock crop_tomato = null;
+    public static final CropBlock crop_tomato = null;
     public static final Block granite_pizza_slab = null;
 
     /**

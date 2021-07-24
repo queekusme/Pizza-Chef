@@ -9,18 +9,18 @@ import java.util.function.Supplier;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
-import com.queekus.pizzachef.blocks.CropsBlockMultiHeight;
+import com.queekus.pizzachef.blocks.CropBlockMultiHeight;
 import com.queekus.pizzachef.blocks.ModBlocks;
 import com.queekus.pizzachef.items.ModItems;
 
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
-import net.minecraft.block.Block;
-import net.minecraft.block.CropsBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.LootTableProvider;
 import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraft.loot.ItemLootEntry;
 import net.minecraft.loot.LootParameterSet;
 import net.minecraft.loot.LootParameterSets;
@@ -65,8 +65,8 @@ public class ModLootTableProvider extends LootTableProvider
                     BlockStateProperty
                         .hasBlockStateProperties(ModBlocks.crop_tomato)
                         .setProperties(StatePropertiesPredicate.Builder.properties()
-                            .hasProperty(CropsBlock.AGE, 7)
-                            .hasProperty(CropsBlockMultiHeight.HEIGHT_2, 1))
+                            .hasProperty(CropBlock.AGE, 7)
+                            .hasProperty(CropBlockMultiHeight.HEIGHT_2, 1))
                 )
             );
             add(ModBlocks.granite_pizza_slab, BlockLootTables::createNameableBlockEntityTable);

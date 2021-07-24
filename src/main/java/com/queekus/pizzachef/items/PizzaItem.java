@@ -7,15 +7,15 @@ import javax.annotation.Nullable;
 import com.queekus.pizzachef.api.IPizza;
 import com.queekus.pizzachef.data.tags.ModTags;
 
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.item.Food;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
@@ -50,7 +50,7 @@ public class PizzaItem extends Item implements IPizza
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
         IItemHandler handler = IPizza.getHandlerForPizza(stack);
         Item pizzaItem = this.getItem();

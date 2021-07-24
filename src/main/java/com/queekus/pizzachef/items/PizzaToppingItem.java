@@ -2,7 +2,7 @@ package com.queekus.pizzachef.items;
 
 import com.queekus.pizzachef.api.IPizzaTopping;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 public class PizzaToppingItem extends Item implements IPizzaTopping
 {

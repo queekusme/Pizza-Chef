@@ -2,9 +2,9 @@ package com.queekus.pizzachef.api;
 
 import com.queekus.pizzachef.data.tags.ModTags;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.NonNullList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
 public class PizzaInventoryHandler implements IItemHandler
@@ -88,12 +88,12 @@ public class PizzaInventoryHandler implements IItemHandler
     @Override
     public ItemStack getStackInSlot(int slot)
     {
-        CompoundNBT pizzaTag = this.getPizzaCompound();
+        CompoundTag pizzaTag = this.getPizzaCompound();
 
         if(!pizzaTag.contains(this.getKeyForSlot(slot)))
             return ItemStack.EMPTY;
 
-        CompoundNBT stackAsTag = pizzaTag.getCompound(this.getKeyForSlot(slot));
+        CompoundTag stackAsTag = pizzaTag.getCompound(this.getKeyForSlot(slot));
 
         return ItemStack.of(stackAsTag);
     }
@@ -126,8 +126,8 @@ public class PizzaInventoryHandler implements IItemHandler
         {
             stack.copy().setCount(this.getSlotLimit(slot));
 
-            CompoundNBT stackAsTag = stack.save(new CompoundNBT());
-            CompoundNBT pizzaTag = this.getPizzaCompound();
+            CompoundTag stackAsTag = stack.save(new CompoundTag());
+            CompoundTag pizzaTag = this.getPizzaCompound();
 
             pizzaTag.put(this.getKeyForSlot(slot), stackAsTag);
         }
@@ -143,8 +143,8 @@ public class PizzaInventoryHandler implements IItemHandler
         if((!force && !this.canExtractFromSlot(slot)) || amount == 0)
             return ItemStack.EMPTY;
 
-        CompoundNBT pizzaTag = this.getPizzaCompound();
-        CompoundNBT stackAsTag = pizzaTag.getCompound(this.getKeyForSlot(slot));
+        CompoundTag pizzaTag = this.getPizzaCompound();
+        CompoundTag stackAsTag = pizzaTag.getCompound(this.getKeyForSlot(slot));
 
         if(!simulate)
             pizzaTag.remove(this.getKeyForSlot(slot));
@@ -175,7 +175,7 @@ public class PizzaInventoryHandler implements IItemHandler
 
     public NonNullList<ItemStack> getAllItems()
     {
-        CompoundNBT pizzaTag = this.getPizzaCompound();
+        CompoundTag pizzaTag = this.getPizzaCompound();
         NonNullList<ItemStack> allSlots = NonNullList.create();
 
         for(int i = 0; i < this.getSlots(); i++)
@@ -196,7 +196,7 @@ public class PizzaInventoryHandler implements IItemHandler
         return this.asIPizza().canModifyIngredients() && this.getPizzaCompound().contains(this.getKeyForSlot(slot));
     }
 
-    private CompoundNBT getPizzaCompound()
+    private CompoundTag getPizzaCompound()
     {
         return workingStack.getOrCreateTag();
     }

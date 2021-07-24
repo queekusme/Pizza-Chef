@@ -4,12 +4,11 @@ import com.queekus.pizzachef.PizzaChef;
 import com.queekus.pizzachef.items.ModItems;
 import com.queekus.pizzachef.loot_modifiers.AdditionalItemsLootModifier;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.Item;
 import net.minecraft.loot.conditions.BlockStateProperty;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.loot.conditions.RandomChance;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 

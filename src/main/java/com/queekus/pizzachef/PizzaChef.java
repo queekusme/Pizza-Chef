@@ -9,20 +9,20 @@ import com.queekus.pizzachef.tileentities.renderers.GranitePizzaSlabTileEntityRe
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IItemProvider;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fmlclient.registry.ClientRegistry;
 
 @Mod(PizzaChef.MOD_ID)
 public class PizzaChef
 {
     public static final String MOD_ID = "pizzachef";
 
-    public static ItemGroup creativeTab = new PizzaChefItemGroup(PizzaChef.MOD_ID, () -> ModItems.pizza);
+    public static CreativeModeTab creativeTab = new PizzaChefItemGroup(PizzaChef.MOD_ID, () -> ModItems.pizza);
 
     public PizzaChef()
     {
@@ -35,11 +35,11 @@ public class PizzaChef
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
     }
 
-    private static class PizzaChefItemGroup extends ItemGroup
+    private static class PizzaChefItemGroup extends CreativeModeTab
     {
-        private IItemProvider icon;
+        private ItemLike icon;
 
-        public PizzaChefItemGroup(String label, IItemProvider icon) { super(label); this.icon = icon; }
+        public PizzaChefItemGroup(String label, ItemLike icon) { super(label); this.icon = icon; }
         @Override public ItemStack makeIcon() { return new ItemStack(icon); }
     }
 

@@ -4,20 +4,20 @@ import com.queekus.pizzachef.data.tags.ModTags;
 import com.queekus.pizzachef.tileentities.ModTileEntities;
 import com.queekus.pizzachef.tileentities.TileEntityGranitePizzaSlab;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class GranitePizzaSlabBlock extends Block
 {
@@ -30,22 +30,22 @@ public class GranitePizzaSlabBlock extends Block
 
     @Override
     @SuppressWarnings("deprecation")
-    public ActionResultType use(
+    public InteractionResult use(
         BlockState state,
-        World world,
+        Level world,
         BlockPos pos,
-        PlayerEntity player,
-        Hand hand,
-        BlockRayTraceResult hit
+        Player player,
+        InteractionHand hand,
+        BlockHitResult hit
     )
     {
         if(ModTags.Items.PIZZA_CUTTER.contains(player.getItemInHand(hand).getItem()))
         {
-            TileEntity tile = world.getBlockEntity(pos);
+            BlockEntity tile = world.getBlockEntity(pos);
             if(tile instanceof TileEntityGranitePizzaSlab)
             {
                 ((TileEntityGranitePizzaSlab)tile).dropPizzaSlicesAsItems();
-                return ActionResultType.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
 
@@ -64,18 +64,18 @@ public class GranitePizzaSlabBlock extends Block
     }
 
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+    public BlockEntity createTileEntity(BlockState state, IBlockReader world)
     {
         return ModTileEntities.GRANITE_PIZZA_SLAB.get().create();
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
+    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving)
     {
-        TileEntity te = worldIn.getBlockEntity(pos);
-        if (te instanceof IInventory)
-            InventoryHelper.dropContents(worldIn, pos, (IInventory)te);
+        BlockEntity te = worldIn.getBlockEntity(pos);
+        if (te instanceof Container)
+        Containers.dropContents(worldIn, pos, (Container)te);
 
         super.onRemove(state, worldIn, pos, newState, isMoving);
     }

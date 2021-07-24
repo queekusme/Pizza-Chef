@@ -7,15 +7,15 @@ import javax.annotation.Nullable;
 import com.queekus.pizzachef.api.IPizza;
 import com.queekus.pizzachef.data.tags.ModTags;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.item.Food;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
@@ -50,11 +50,10 @@ public class PizzaItem extends Item implements IPizza
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, ITooltipFlag flagIn)
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn)
     {
         IItemHandler handler = IPizza.getHandlerForPizza(stack);
-        Item pizzaItem = this.getItem();
-        boolean isSlice = pizzaItem == ModItems.pizza_slice;
+        boolean isSlice = this == ModItems.pizza_slice;
         String ingredientIndent = !isSlice ? "  " : "";
 
         for(int i = handler.getSlots() - 1; i >= 0; i--)
@@ -64,13 +63,13 @@ public class PizzaItem extends Item implements IPizza
             if(!isSlice)
             {
                 if(i == handler.getSlots() - 1)
-                    tooltip.add(new StringTextComponent(TextFormatting.GRAY + "- " + TextFormatting.RESET + I18n.get("pizza.lore.left") + ":"));
+                    tooltip.add(new TextComponent(ChatFormatting.GRAY + "- " + ChatFormatting.RESET + I18n.get("pizza.lore.left") + ":"));
                 else if(i == (handler.getSlots() / 2) - 1)
-                    tooltip.add(new StringTextComponent(TextFormatting.GRAY + "- " + TextFormatting.RESET + I18n.get("pizza.lore.right") + ":"));
+                    tooltip.add(new TextComponent(ChatFormatting.GRAY + "- " + ChatFormatting.RESET + I18n.get("pizza.lore.right") + ":"));
             }
 
             if(slotStack != ItemStack.EMPTY)
-                tooltip.add(new StringTextComponent(TextFormatting.AQUA + ingredientIndent + "- " + I18n.get(slotStack.getItem().getDescriptionId())));
+                tooltip.add(new TextComponent(ChatFormatting.AQUA + ingredientIndent + "- " + I18n.get(slotStack.getItem().getDescriptionId())));
         }
     }
 
@@ -81,13 +80,13 @@ public class PizzaItem extends Item implements IPizza
     }
 
     @Override
-    public Food getFoodProperties()
+    public FoodProperties getFoodProperties()
     {
         /**
          * NOTE: Currently Impossible to generate desired values from Items within Pizza's NBT
          * This is due to https://github.com/MinecraftForge/MinecraftForge/issues/7701
          */
-        return new Food.Builder()
+        return new FoodProperties.Builder()
             .nutrition(0)
             .saturationMod(0)
             .build();

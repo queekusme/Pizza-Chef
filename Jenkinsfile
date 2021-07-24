@@ -11,7 +11,7 @@ node("docker")
         ])
         {
             writeChangelog(currentBuild, 'build/changelog.txt')
-            println "$currentBuild.buildVariables"
+            println "$currentBuild"
             println sh(returnStdout: true, script: 'cat build/changelog.txt').trim()
             sh 'false'
         }

@@ -6,10 +6,10 @@ import com.queekus.pizzachef.PizzaChef;
 import com.queekus.pizzachef.blocks.CropBlockMultiHeight;
 import com.queekus.pizzachef.blocks.ModBlocks;
 
+import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;

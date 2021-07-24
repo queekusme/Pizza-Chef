@@ -39,7 +39,7 @@ minecraft {
     // Use non-default mappings at your own risk. they may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
     //mappings channel: "official", version: "${minecraft_version}"
-    mappings channel: "official", version: "1.17"
+    mappings channel: minecraft_mappings_channel, version: minecraft_mappings_version
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
     accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
@@ -119,6 +119,8 @@ minecraft {
 }
 
 processResources {
+    duplicatesStrategy = 'include'
+
     def toml_data = [
         "mod_version" : mod_version,
         "minecraft_version_range": minecraft_version_range,

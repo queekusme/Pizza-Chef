@@ -8,16 +8,16 @@ import com.queekus.pizzachef.crafting.ModCrafting;
 import com.queekus.pizzachef.data.tags.ModTags;
 import com.queekus.pizzachef.items.ModItems;
 
-import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.SimpleCookingSerializer;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 
 public class ModRecipeProvider extends RecipeProvider
 {
@@ -27,7 +27,7 @@ public class ModRecipeProvider extends RecipeProvider
     }
 
     // Can be used for both Shapeless AND Shaped Recipes
-    protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer)
+    protected void buildShapelessRecipes(Consumer<FinishedRecipe> consumer)
     {
         collectGraniteRecipes(consumer);
         collectCheeseRecipes(consumer);
@@ -39,7 +39,7 @@ public class ModRecipeProvider extends RecipeProvider
         cookRecipes(consumer, ModCrafting.CAMPFIRE_COOKING_TRANSFER_NBT.get(), "campfire_cooking", 600, 0.35F);
     }
 
-    private void collectGraniteRecipes(Consumer<IFinishedRecipe> consumer)
+    private void collectGraniteRecipes(Consumer<FinishedRecipe> consumer)
     {
         ShapedRecipeBuilder
             .shaped(ModBlocks.granite_pizza_slab, 8)
@@ -59,7 +59,7 @@ public class ModRecipeProvider extends RecipeProvider
             .save(consumer);
     }
 
-    private void collectMiscRecipes(Consumer<IFinishedRecipe> consumer)
+    private void collectMiscRecipes(Consumer<FinishedRecipe> consumer)
     {
         ShapelessRecipeBuilder
             .shapeless(ModItems.flour)
@@ -86,7 +86,7 @@ public class ModRecipeProvider extends RecipeProvider
             .save(consumer);
     }
 
-    private void collectTomatoRecipes(Consumer<IFinishedRecipe> consumer)
+    private void collectTomatoRecipes(Consumer<FinishedRecipe> consumer)
     {
         ShapelessRecipeBuilder
             .shapeless(ModItems.tomato_puree)
@@ -102,7 +102,7 @@ public class ModRecipeProvider extends RecipeProvider
             .save(consumer);
     }
 
-    private void collectCheeseRecipes(Consumer<IFinishedRecipe> consumer)
+    private void collectCheeseRecipes(Consumer<FinishedRecipe> consumer)
     {
         ShapelessRecipeBuilder
             .shapeless(ModItems.block_of_cheese)
@@ -123,9 +123,9 @@ public class ModRecipeProvider extends RecipeProvider
             .save(consumer); // TODO: Recipe Book doesn't ignore damage, recipe works manually however
     }
 
-    private void cookRecipes(Consumer<IFinishedRecipe> consumer, SimpleCookingSerializer<?> serializer, String serializerId, int cookTime, float experience)
+    private void cookRecipes(Consumer<FinishedRecipe> consumer, SimpleCookingSerializer<?> serializer, String serializerId, int cookTime, float experience)
     {
-        CookingRecipeBuilder.cooking(Ingredient.of(ModItems.pizza_base), ModItems.pizza, experience, cookTime, serializer)
+        SimpleCookingRecipeBuilder.cooking(Ingredient.of(ModItems.pizza_base), ModItems.pizza, experience, cookTime, serializer)
             .unlockedBy("has_pizza_base", has(ModItems.pizza_base))
             .save(consumer, new ResourceLocation(PizzaChef.MOD_ID, "cooked_pizza_from_" + serializerId));
     }

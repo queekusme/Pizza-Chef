@@ -9,9 +9,9 @@ import com.queekus.pizzachef.items.ModItems;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
 
-@SuppressWarnings({"serial"})
 public class ModLangProvider extends LanguageProvider
 {
     private String locale;

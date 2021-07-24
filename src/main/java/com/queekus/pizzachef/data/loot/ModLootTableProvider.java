@@ -13,25 +13,25 @@ import com.queekus.pizzachef.blocks.CropBlockMultiHeight;
 import com.queekus.pizzachef.blocks.ModBlocks;
 import com.queekus.pizzachef.items.ModItems;
 
-import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.LootTableProvider;
-import net.minecraft.data.loot.BlockLootTables;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.world.item.Item;
-import net.minecraft.loot.ItemLootEntry;
-import net.minecraft.loot.LootParameterSet;
-import net.minecraft.loot.LootParameterSets;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTableManager;
-import net.minecraft.loot.ValidationTracker;
-import net.minecraft.loot.conditions.BlockStateProperty;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.loot.functions.ApplyBonus;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootTables;
+import net.minecraft.world.level.storage.loot.ValidationContext;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class ModLootTableProvider extends LootTableProvider
 {
@@ -40,19 +40,19 @@ public class ModLootTableProvider extends LootTableProvider
         super(dataGeneratorIn);
     }
 
-    protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables()
+    protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables()
     {
         return ImmutableList.of(
-            Pair.of(ModBlockLootTables::new, LootParameterSets.BLOCK)
+            Pair.of(ModBlockLootTables::new, LootContextParamSets.BLOCK)
         );
     }
 
-    protected void validate(Map<ResourceLocation, LootTable> map, ValidationTracker validationtracker) {
-        map.forEach((id, lootTable) -> LootTableManager.validate(validationtracker, id, lootTable));
+    protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationContext) {
+        map.forEach((id, lootTable) -> LootTables.validate(validationContext, id, lootTable));
     }
 
     @SuppressWarnings("serial")
-    public static class ModBlockLootTables extends BlockLootTables
+    public static class ModBlockLootTables extends BlockLoot
     {
         @Override
         protected void addTables()
@@ -62,32 +62,32 @@ public class ModLootTableProvider extends LootTableProvider
                 createProduceCropDrops(
                     ModItems.tomato,
                     ModItems.tomato_seeds,
-                    BlockStateProperty
+                    LootItemBlockStatePropertyCondition
                         .hasBlockStateProperties(ModBlocks.crop_tomato)
                         .setProperties(StatePropertiesPredicate.Builder.properties()
                             .hasProperty(CropBlock.AGE, 7)
                             .hasProperty(CropBlockMultiHeight.HEIGHT_2, 1))
                 )
             );
-            add(ModBlocks.granite_pizza_slab, BlockLootTables::createNameableBlockEntityTable);
+            add(ModBlocks.granite_pizza_slab, BlockLoot::createNameableBlockEntityTable);
         }
 
-        protected static LootTable.Builder createProduceCropDrops(Item crop, Item seed, ILootCondition.IBuilder cropCondition)
+        protected static LootTable.Builder createProduceCropDrops(Item crop, Item seed, LootItemCondition.Builder cropCondition)
         {
             return LootTable.lootTable()
                 .withPool(
                     LootPool.lootPool()
                         .add(
-                            ItemLootEntry.lootTableItem(crop)
+                            LootItem.lootTableItem(crop)
                                 .when(cropCondition)
                                 .otherwise(
-                                    ItemLootEntry.lootTableItem(seed))))
+                                    LootItem.lootTableItem(seed))))
                 .withPool(
                     LootPool.lootPool()
                         .when(cropCondition)
                         .add(
-                            ItemLootEntry.lootTableItem(crop)
-                                .apply(ApplyBonus.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))));
+                            LootItem.lootTableItem(crop)
+                                .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))));
         }
 
         @Override

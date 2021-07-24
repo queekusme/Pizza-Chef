@@ -5,10 +5,11 @@ import com.queekus.pizzachef.items.ModItems;
 import com.queekus.pizzachef.loot_modifiers.AdditionalItemsLootModifier;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.loot.conditions.BlockStateProperty;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.loot.conditions.RandomChance;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 
@@ -29,20 +30,20 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider
             "grass",
             serializerInstance,
             new AdditionalItemsLootModifier(
-                new ILootCondition[]
+                new LootItemCondition[]
                 {
-                    RandomChance.randomChance(0.125F).build(),
-                    BlockStateProperty.hasBlockStateProperties(Blocks.GRASS).build()
+                    LootItemRandomChanceCondition.randomChance(0.125F).build(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.GRASS).build()
                 },
                 new Item[]{ ModItems.tomato_seeds }));
         add(
             "sand",
             serializerInstance,
             new AdditionalItemsLootModifier(
-                new ILootCondition[]
+                new LootItemCondition[]
                 {
-                    RandomChance.randomChance(0.125F).build(),
-                    BlockStateProperty.hasBlockStateProperties(Blocks.SAND).build()
+                    LootItemRandomChanceCondition.randomChance(0.125F).build(),
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SAND).build()
                 },
                 new Item[]{ ModItems.salt }));
     }

@@ -2,8 +2,8 @@ package com.queekus.pizzachef.data.tags;
 
 import com.queekus.pizzachef.PizzaChef;
 
-import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class ModBlockTagProvider extends BlockTagsProvider

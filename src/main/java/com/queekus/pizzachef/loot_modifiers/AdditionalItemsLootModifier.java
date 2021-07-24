@@ -9,23 +9,23 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootSerializers;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.Deserializers;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class AdditionalItemsLootModifier extends LootModifier
 {
-    private static final Gson GSON_INSTANCE = LootSerializers.createFunctionSerializer().create();
+    private static final Gson GSON_INSTANCE = Deserializers.createFunctionSerializer().create();
 
     Item[] additionalItems;
-    public AdditionalItemsLootModifier(ILootCondition[] conditionsIn, Item[] additionalItems)
+    public AdditionalItemsLootModifier(LootItemCondition[] conditionsIn, Item[] additionalItems)
     {
         super(conditionsIn);
         this.additionalItems = additionalItems;
@@ -42,10 +42,10 @@ public class AdditionalItemsLootModifier extends LootModifier
     public static class Serializer extends GlobalLootModifierSerializer<AdditionalItemsLootModifier>
     {
         @Override
-        public AdditionalItemsLootModifier read(ResourceLocation name, JsonObject object, ILootCondition[] conditionsIn)
+        public AdditionalItemsLootModifier read(ResourceLocation name, JsonObject object, LootItemCondition[] conditionsIn)
         {
             List<Item> items = new ArrayList<>();
-            JSONUtils.getAsJsonArray(object, "additionalItems").forEach((id) ->
+            GsonHelper.getAsJsonArray(object, "additionalItems").forEach((id) ->
             {
                 items.add(ForgeRegistries.ITEMS.getValue(new ResourceLocation(id.getAsString())));
             });

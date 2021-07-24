@@ -3,7 +3,7 @@ node("docker") {
 
     stage("Build Mod")
     {
-        docker.image('adoptopenjdk/openjdk16:aarch64-ubuntu-jre-16.0.1_9').inside()
+        docker.image('gradle:jdk16-hotspot').inside()
         {
             sh '''
                 chmod +x gradlew

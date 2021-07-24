@@ -16,6 +16,7 @@ pipeline {
         stage('Changelog') {
             steps {
                 writeChangelog(currentBuild, 'build/changelog.txt')
+                println sh(returnStdout: true, script: 'cat build/changelog.txt').trim()
             }
         }
         stage("Build Mod")

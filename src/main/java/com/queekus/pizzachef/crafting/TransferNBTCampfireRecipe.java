@@ -17,7 +17,7 @@ public class TransferNBTCampfireRecipe extends CampfireCookingRecipe
     }
 
     @Override
-    public ItemStack assemble(IInventory craftingInv)
+    public ItemStack assemble(Container craftingInv)
     {
         ItemStack result = super.assemble(craftingInv);
 

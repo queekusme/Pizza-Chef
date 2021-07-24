@@ -3,10 +3,10 @@ package com.queekus.pizzachef.crafting;
 import net.minecraft.world.Container;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.FurnaceRecipe;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class TransferNBTSmeltingRecipe extends FurnaceRecipe
+public class TransferNBTSmeltingRecipe extends SmeltingRecipe
 {
     public TransferNBTSmeltingRecipe(
         ResourceLocation id, String group, Ingredient ingredient,
@@ -16,8 +16,8 @@ public class TransferNBTSmeltingRecipe extends FurnaceRecipe
         super(id, group, ingredient, result, experience, cookingTime);
     }
 
-    @Override // Requires at least Forge: 1.16.5-36.1.51
-    public ItemStack assemble(IInventory craftingInv)
+    @Override
+    public ItemStack assemble(Container craftingInv)
     {
         ItemStack result = super.assemble(craftingInv);
 

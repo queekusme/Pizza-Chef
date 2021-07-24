@@ -15,7 +15,7 @@ import net.minecraft.data.RecipeProvider;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CookingRecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.resources.ResourceLocation;
 
@@ -123,7 +123,7 @@ public class ModRecipeProvider extends RecipeProvider
             .save(consumer); // TODO: Recipe Book doesn't ignore damage, recipe works manually however
     }
 
-    private void cookRecipes(Consumer<IFinishedRecipe> consumer, CookingRecipeSerializer<?> serializer, String serializerId, int cookTime, float experience)
+    private void cookRecipes(Consumer<IFinishedRecipe> consumer, SimpleCookingSerializer<?> serializer, String serializerId, int cookTime, float experience)
     {
         CookingRecipeBuilder.cooking(Ingredient.of(ModItems.pizza_base), ModItems.pizza, experience, cookTime, serializer)
             .unlockedBy("has_pizza_base", has(ModItems.pizza_base))

@@ -7,11 +7,11 @@ node("docker")
     stage("Generate Changelog")
     {
         withEnv([
-            "MYVERSION=${sh(returnStdout: true, script: './gradlew properties -q | grep "^version:" | awk "{print $2}"').trim()}"
+            "MYVERSION=${sh(returnStdout: true, script: './gradlew properties -q | grep "^version:" | awk "{print \$2}"').trim()}"
         ])
         {
             writeChangelog(currentBuild, 'build/changelog.txt')
-            println "===$MYVERSION==="
+            println "$currentBuild.buildVariables"
             println sh(returnStdout: true, script: 'cat build/changelog.txt').trim()
             sh 'false'
         }

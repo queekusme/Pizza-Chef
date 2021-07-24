@@ -11,7 +11,10 @@ node("docker")
 
     withCredentials([string(credentialsId: 'CURSEFORGE_API_UPLOAD', variable: 'TOKEN')])
     {
-        withEnv(["CURSEFORGE_API_UPLOAD=${TOKEN}"])
+        withEnv([
+            "CURSEFORGE_API_UPLOAD=${TOKEN}",
+            "MYVERSION=${sh(returnStdout: true, script: './gradlew :forge:properties -q | grep "^version:" | cut -d" " -f2').trim()}"
+        ])
         {
             stage("Build Mod")
             {

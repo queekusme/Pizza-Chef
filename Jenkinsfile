@@ -13,7 +13,7 @@ node("docker")
     {
         withEnv([
             "CURSEFORGE_API_UPLOAD=${TOKEN}",
-            "MYVERSION=${sh(returnStdout: true, script: './gradlew properties -q | grep "^version:" | cut -d" " -f2').trim()}"
+            "MYVERSION=${sh(returnStdout: true, script: './gradlew properties -q | grep "^version:" | awk \"{print $2}\"').trim()}"
         ])
         {
             stage("Build Mod")
